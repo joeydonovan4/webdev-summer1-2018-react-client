@@ -20,7 +20,7 @@ class CourseRow extends Component {
                     {this.props.course.updatedAt}
                 </td>
                 <td style={verticalAlignStyle} className="text-center">
-                    <DeleteCourseButton course={this.props.course.id}/>
+                    <DeleteCourseButton course={this.props.course}/>
                 </td>
             </tr>
         )
