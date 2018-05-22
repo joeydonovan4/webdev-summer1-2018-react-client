@@ -1,21 +1,26 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import DeleteCourseButton from './DeleteCourseButton';
+
+const verticalAlignStyle = { verticalAlign: 'middle'}
+
 class CourseRow extends Component {
     render() {
         return (
             <tr>
-                <td>
+                <td style={verticalAlignStyle}>
                     <Link to={`/courses/${this.props.course.id}`}>
                         {this.props.course.title}
                     </Link>
                 </td>
-                <td>
-                    Me
+                <td style={verticalAlignStyle}>
+                    me
                 </td>
-                <td>
+                <td style={verticalAlignStyle}>
                     {this.props.course.updatedAt}
                 </td>
-                <td>
+                <td style={verticalAlignStyle} className="text-center">
+                    <DeleteCourseButton course={this.props.course.id}/>
                 </td>
             </tr>
         )
