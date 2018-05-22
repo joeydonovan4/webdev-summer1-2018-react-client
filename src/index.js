@@ -5,6 +5,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 
 document.body.style.backgroundColor = '#dad9d9';
+document.body.style.fontFamily = 'Tahoma, Geneva, sans-serif';
 ReactDOM.render(
     <div className="container-fluid">
         <CourseManager/>
