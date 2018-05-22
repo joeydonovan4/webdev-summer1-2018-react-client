@@ -21,15 +21,13 @@ class CourseList extends Component {
     }
 
     renderCourses() {
-        let courses = null;
         if (this.state) {
-            courses = this.state.courses.map((course) => {
+            return this.state.courses.map((course) => {
                 return <CourseRow key={course.id} course={course}/>
             });
+        } else {
+            return <tr><td align="center" colSpan="4">No courses!</td></tr>
         }
-        return (
-            courses
-        )
     }
 
     render() {
