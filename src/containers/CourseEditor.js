@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {Modal, Button} from 'react-bootstrap';
+import {Route} from 'react-router-dom';
 import CourseServiceClient from '../services/CourseServiceClient';
-import {Link} from 'react-router-dom';
+import ModuleList from './ModuleList';
+import LessonTabs from './LessonTabs';
 import '../styles/CourseEditor.css';
 
 const modalHeaderStyles = {
@@ -24,8 +26,7 @@ class CourseEditor extends Component {
         this.hide = this.hide.bind(this);
         this.findCourseById = this.findCourseById.bind(this);
         this.getCourseName = this.getCourseName.bind(this);
-        this.renderModuleList = this.renderModuleList.bind(this);
-
+        this.findAllModulesForCourse = this.findAllModulesForCourse.bind(this);
         this.state = {
             show: false
         };
@@ -57,6 +58,13 @@ class CourseEditor extends Component {
         return null;
     }
 
+    getCourseId() {
+        if (this.state.course) {
+            return this.state.course.id;
+        }
+        return null;
+    }
+
     findAllModulesForCourse(id) {
         this.courseService.findAllModulesForCourse(id)
             .then((modules) => {
@@ -67,16 +75,6 @@ class CourseEditor extends Component {
             });
     }
 
-    renderModuleList() {
-        if (this.state.modules) {
-            return this.state.modules.map((mod) => {
-                return <Link key={mod.id} to={`/courses/${this.state.course.id}/modules/${mod.id}`}>{mod.title}</Link>
-            });
-        } else {
-            return null;
-        }
-    }
-
     render() {
         return (
             <Modal show={this.state.show} onHide={this.hide} animation>
@@ -85,10 +83,10 @@ class CourseEditor extends Component {
                 </Modal.Header>
 
                 <Modal.Body style={{ height: 500, padding: 0 }}>
-                    <div className="sidenav">
-                        {this.renderModuleList()}
+                    <ModuleList courseId={this.getCourseId()} modules={this.state.modules}/>
+                    <div id="module-info">
+                        <Route path={`/courses/:courseId/modules/:moduleId`} component={LessonTabs}/>
                     </div>
-                    <div id="module-info"></div>
                 </Modal.Body>
 
                 <Modal.Footer>
