@@ -84,9 +84,7 @@ class CourseEditor extends Component {
 
                 <Modal.Body style={{ height: 500, padding: 0 }}>
                     <ModuleList courseId={this.getCourseId()} modules={this.state.modules}/>
-                    <div id="module-info">
-                        <Route path={`/courses/:courseId/modules/:moduleId`} component={LessonTabs}/>
-                    </div>
+                    <Route path={`/courses/:courseId/modules/:moduleId`} component={LessonTabs}/>
                 </Modal.Body>
 
                 <Modal.Footer>
