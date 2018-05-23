@@ -1,16 +1,25 @@
 import React, {Component} from 'react';
 import CourseServiceClient from '../services/CourseServiceClient';
+import LessonServiceClient from '../services/LessonServiceClient';
 import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import ConfirmModal from '../containers/ConfirmModal';
+import '../styles/CourseEditor.css';
 
 class LessonTabs extends Component {
     constructor(props) {
         super(props);
         this.courseService = CourseServiceClient.instance;
+        this.lessonService = LessonServiceClient.instance;
         this.findAllLessonsForModule = this.findAllLessonsForModule.bind(this);
+        this.deleteLesson = this.deleteLesson.bind(this);
+        this.showModal = this.showModal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+        this.getSelectedLessonTitle = this.getSelectedLessonTitle.bind(this);
 
         this.state = {
             courseId: this.props.match.params.courseId,
-            moduleId: this.props.match.params.moduleId
+            moduleId: this.props.match.params.moduleId,
+            showConfirmModal: false
         };
     }
 
@@ -38,10 +47,54 @@ class LessonTabs extends Component {
             });
     }
 
+    deleteLesson() {
+        let lessonId = this.state.selectedLesson.id;
+        this.lessonService.deleteLesson(lessonId)
+            .then((lesson) => {
+                let lessons = this.state.lessons.filter((l) => {
+                    return l.id != lesson.id;
+                });
+                this.setState({
+                    lessons: lessons,
+                    showConfirmModal: false
+                });
+            });
+    }
+
+    showModal(event) {
+        let lessonId = event.currentTarget.id;
+        let selectedLesson = this.state.lessons.filter((l) => {
+            return l.id == lessonId;
+        })[0];
+        this.setState({
+            showConfirmModal: true,
+            selectedLesson: selectedLesson
+        });
+    }
+
+    hideModal() {
+        this.setState({showConfirmModal: false});
+    }
+
+    getSelectedLessonTitle() {
+        if (this.state.selectedLesson) {
+            return this.state.selectedLesson.title;
+        }
+        return null;
+    }
+
     renderLessons() {
         if (this.state.lessons) {
             return this.state.lessons.map((lesson) => {
-                return <ListGroupItem key={lesson.id}>{lesson.title}</ListGroupItem>
+                return (
+                    <ListGroupItem key={lesson.id}>
+                        {lesson.title}
+                        <button type="button" className="close" id={lesson.id} onClick={this.showModal} title="Delete lesson">
+                            <span aria-hidden="true">x</span>
+                            <span className="sr-only">Close</span>
+                        </button>
+                    </ListGroupItem>
+                )
             });
         }
         return null;
@@ -50,9 +103,15 @@ class LessonTabs extends Component {
     render() {
         return (
             <div id="module-info">
-                <ListGroup>
+                <ListGroup className="styled-list">
                     {this.renderLessons()}
                 </ListGroup>
+                <ConfirmModal
+                    show={this.state.showConfirmModal}
+                    onHide={this.hideModal}
+                    action="delete"
+                    resource={this.getSelectedLessonTitle()}
+                    onSubmit={this.deleteLesson}/>
             </div>
         )
     }

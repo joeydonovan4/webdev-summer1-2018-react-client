@@ -36,3 +36,13 @@
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
+
+.styled-list > .list-group-item {
+    background-color: #c5cbe3;
+    border-color: #c7c7c7;
+    color: #2c3531;
+}
+
+.styled-list .close {
+    margin-top: -2px;
+}
