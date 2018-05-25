@@ -5,7 +5,7 @@
     background-color: #c5cbe3;
     position: fixed;
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 20px;
+    padding-top: 10px;
     border-right: 2px solid #c7c7c7;
     overflow-y: scroll;
 }
@@ -22,6 +22,11 @@
 .sidenav a:hover {
     color: #434846cc;
     text-decoration: none;
+}
+
+.sidenav .form-control {
+    padding: 6px 8px;
+    color: #2c3531;
 }
 
 #module-info {
@@ -45,4 +50,11 @@
 
 .styled-list .close {
     margin-top: -2px;
+}
+
+#new-module-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1;
 }
