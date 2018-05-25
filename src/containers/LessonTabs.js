@@ -85,17 +85,20 @@ class LessonTabs extends Component {
 
     renderLessons() {
         if (this.state.lessons) {
-            return this.state.lessons.map((lesson) => {
-                return (
-                    <ListGroupItem key={lesson.id}>
-                        {lesson.title}
-                        <button type="button" className="close" id={lesson.id} onClick={this.showModal} title="Delete lesson">
-                            <span aria-hidden="true">x</span>
-                            <span className="sr-only">Close</span>
-                        </button>
-                    </ListGroupItem>
-                )
-            });
+            if (this.state.lessons.length > 0) {
+                return this.state.lessons.map((lesson) => {
+                    return (
+                        <ListGroupItem key={lesson.id}>
+                            {lesson.title}
+                            <button type="button" className="close" id={lesson.id} onClick={this.showModal} title="Delete lesson">
+                                <span aria-hidden="true">x</span>
+                                <span className="sr-only">Close</span>
+                            </button>
+                        </ListGroupItem>
+                    )
+                });
+            }
+            return <p>This module has no lessons!</p>;
         }
         return null;
     }
