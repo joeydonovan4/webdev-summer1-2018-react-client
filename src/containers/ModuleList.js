@@ -54,7 +54,7 @@ class ModuleList extends Component {
     }
 
     renderModuleList() {
-        if (this.state.modules) {
+        if (this.state.modules.length > 0) {
             return this.state.modules.map((mod) => {
                 return (
                     <Link key={mod.id} to={`/courses/${this.state.courseId}/modules/${mod.id}`}>
@@ -67,7 +67,7 @@ class ModuleList extends Component {
                 )
             });
         } else {
-            return null;
+            return <p>This course has no modules!</p>;
         }
     }
 

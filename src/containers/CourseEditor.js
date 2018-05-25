@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Modal, Button} from 'react-bootstrap';
+import {Modal, Button, ButtonGroup, FormGroup, Form, FormControl} from 'react-bootstrap';
 import {Route} from 'react-router-dom';
 import CourseServiceClient from '../services/CourseServiceClient';
 import ModuleList from './ModuleList';
@@ -16,7 +16,8 @@ const modalHeaderStyles = {
 
 const editBtnStyles = {
     backgroundColor: '#4056a1',
-    color: 'white'
+    color: 'white',
+    border: 'none'
 }
 
 class CourseEditor extends Component {
@@ -27,8 +28,12 @@ class CourseEditor extends Component {
         this.findCourseById = this.findCourseById.bind(this);
         this.getCourseName = this.getCourseName.bind(this);
         this.findAllModulesForCourse = this.findAllModulesForCourse.bind(this);
+        this.updateCourseNameMode = this.updateCourseNameMode.bind(this);
+        this.updateCourseName = this.updateCourseName.bind(this);
+        this.saveCourseName = this.saveCourseName.bind(this);
         this.state = {
-            show: false
+            show: false,
+            updateNameMode: false
         };
     }
 
@@ -75,21 +80,61 @@ class CourseEditor extends Component {
             });
     }
 
+    updateCourseNameMode() {
+        if (!this.state.updateNameMode) {
+            this.setState({courseName: this.state.course.title});
+        }
+        this.setState({updateNameMode: !this.state.updateNameMode});
+    }
+
+    updateCourseName(event) {
+        this.setState({courseName: event.target.value});
+    }
+
+    saveCourseName() {
+        let updatedCourse = {title: this.state.courseName, id: this.getCourseId()};
+        this.courseService.updateCourse(this.getCourseId(), updatedCourse)
+            .then((course) => {
+                console.log('Course name updated from ' + this.state.course.title + ' to ' + course.title);
+                this.setState({course: course});
+                this.updateCourseNameMode();
+            });
+    }
+
     render() {
         return (
             <Modal show={this.state.show} onHide={this.hide} animation>
                 <Modal.Header closeButton style={modalHeaderStyles}>
-                    <Modal.Title>{this.getCourseName()}</Modal.Title>
+                    <Modal.Title>
+                        { this.state.updateNameMode ?
+                            <Form inline>
+                                <FormGroup>
+                                   <FormControl type="text" value={this.state.courseName} placeholder="Course name" onChange={this.updateCourseName}/> 
+                                </FormGroup>{' '}
+                                <ButtonGroup>
+                                    <Button bsSize="small" bsStyle="danger" title="Cancel changes" onClick={this.updateCourseNameMode}>
+                                        <span className="fa fa-times"></span>
+                                    </Button>
+                                    <Button bsSize="small" bsStyle="success" title="Save changes" onClick={this.saveCourseName}>
+                                        <span className="fa fa-check"></span>
+                                    </Button>
+                                </ButtonGroup>
+                            </Form>
+                            :
+                            this.getCourseName()
+                        }
+                        { !this.state.updateNameMode &&
+                            <Button onClick={this.updateCourseNameMode} bsSize="small" style={editBtnStyles} title="Edit course name">
+                                <span className="fa fa-pencil"></span>
+                            </Button>
+                        }
+                    </Modal.Title>
                 </Modal.Header>
 
                 <Modal.Body style={{ height: 500, padding: 0 }}>
                     <ModuleList courseId={this.getCourseId()} modules={this.state.modules}/>
                     <Route path={`/courses/:courseId/modules/:moduleId`} component={LessonTabs}/>
                 </Modal.Body>
-
-                <Modal.Footer>
-                    <Button bsSize="sm" style={editBtnStyles}>Edit Course</Button>
-                </Modal.Footer>
             </Modal>
         )
     }
