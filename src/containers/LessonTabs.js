@@ -52,7 +52,7 @@ class LessonTabs extends Component {
         this.lessonService.deleteLesson(lessonId)
             .then((lesson) => {
                 let lessons = this.state.lessons.filter((l) => {
-                    return l.id != lesson.id;
+                    return l.id !== lessonId;
                 });
                 this.setState({
                     lessons: lessons,
@@ -62,9 +62,9 @@ class LessonTabs extends Component {
     }
 
     showModal(event) {
-        let lessonId = event.currentTarget.id;
+        let lessonId = parseInt(event.currentTarget.id, 10);
         let selectedLesson = this.state.lessons.filter((l) => {
-            return l.id == lessonId;
+            return l.id === lessonId;
         })[0];
         this.setState({
             showConfirmModal: true,

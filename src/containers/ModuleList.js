@@ -18,9 +18,9 @@ class ModuleList extends Component {
     }
 
     showModal(event) {
-        let moduleId = event.currentTarget.id;
+        let moduleId = parseInt(event.currentTarget.id, 10);
         let moduleToDelete = this.state.modules.filter((mod) => {
-            return mod.id == moduleId;
+            return mod.id === moduleId;
         })[0];
         this.setState({
             showConfirmModal: true,
@@ -44,7 +44,7 @@ class ModuleList extends Component {
         this.moduleService.deleteModule(moduleId)
             .then((mod) => {
                 let modules = this.state.modules.filter((m) => {
-                    return m.id != mod.id;
+                    return m.id !== moduleId;
                 });
                 this.setState({
                     modules: modules,
