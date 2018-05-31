@@ -103,7 +103,7 @@ class CourseEditor extends Component {
 
     render() {
         return (
-            <Modal show={this.state.show} onHide={this.hide} animation>
+            <Modal bsSize="large" show={this.state.show} onHide={this.hide} animation>
                 <Modal.Header closeButton style={modalHeaderStyles}>
                     <Modal.Title>
                         { this.state.updateNameMode ?
