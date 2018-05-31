@@ -5,9 +5,8 @@ import {Nav, NavItem} from 'react-bootstrap';
 import ConfirmModal from '../containers/ConfirmModal';
 import '../styles/CourseEditor.css';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
 import WidgetApp from './WidgetList';
-import {widgetReducer} from '../reducers/widgetReducer';
+import store from "../store/index";
 
 class LessonTabs extends Component {
     constructor(props) {
@@ -120,7 +119,6 @@ class LessonTabs extends Component {
     }
 
     render() {
-        let store = createStore(widgetReducer);
         return (
             <div id="module-info">
                 <Nav bsStyle="tabs" activeKey={this.getFirstLesson()} justified>
