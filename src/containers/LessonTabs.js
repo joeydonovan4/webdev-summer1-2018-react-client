@@ -92,20 +92,20 @@ class LessonTabs extends Component {
     }
 
     renderLessons() {
+        let lessons = null;
         if (this.state.lessons) {
-            return this.state.lessons.map((lesson) => {
+            lessons = this.state.lessons.map((lesson) => {
                 return (
                     <NavItem key={lesson.id} eventKey={lesson.id}>
                         {lesson.title}
-                        <button type="button" className="close" id={lesson.id} onClick={this.showModal} title="Delete lesson">
-                            <span aria-hidden="true">x</span>
-                            <span className="sr-only">Close</span>
-                        </button>
                     </NavItem>
                 )
             });
         }
-        return null;
+        return ([
+            lessons,
+            <NewLessonTab key="new-lesson"/>
+        ]);
     }
 
     getSelectedLessonID() {
@@ -127,7 +127,7 @@ class LessonTabs extends Component {
     render() {
         return (
             <div id="module-info">
-                <Nav bsStyle="tabs" onSelect={this.handleSelect} activeKey={this.getSelectedLessonID()} justified>
+                <Nav bsStyle="tabs" onSelect={this.handleSelect} activeKey={this.getSelectedLessonID()}>
                     {this.renderLessons()}
                 </Nav>
                 <Provider store={store}>
@@ -144,3 +144,9 @@ class LessonTabs extends Component {
     }
 }
 export default LessonTabs;
+
+const NewLessonTab = () => (
+    <NavItem id="new-lesson-tab" title="Create new lesson">
+        <span className="fa fa-plus"></span>
+    </NavItem>
+)

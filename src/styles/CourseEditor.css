@@ -36,6 +36,10 @@
     overflow-y: scroll;
 }
 
+#module-info > ul > li > a {
+    color: #2c3531;
+}
+
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
@@ -57,4 +61,13 @@
     bottom: 10px;
     right: 10px;
     z-index: 1;
+}
+
+#new-lesson-tab {
+    background-color: #5cb85c;
+    border-color: #5cb85c;
+}
+
+#new-lesson-tab .fa {
+    color: white;
 }
