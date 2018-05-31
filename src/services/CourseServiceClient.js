@@ -1,4 +1,5 @@
 let _singleton = Symbol();
+const HOST = 'https://webdev-java-server.herokuapp.com';
 const COURSE_URI = '/api/courses';
 
 class CourseServiceClient {
@@ -13,7 +14,7 @@ class CourseServiceClient {
     }
 
     createCourse(course) {
-        return fetch(COURSE_URI, {
+        return fetch(HOST + COURSE_URI, {
             method: 'POST',
             body: JSON.stringify(course),
             headers: {
@@ -25,7 +26,7 @@ class CourseServiceClient {
     }
 
     deleteCourse(id) {
-        return fetch(COURSE_URI + '/' + id, {
+        return fetch(HOST + COURSE_URI + '/' + id, {
             method: 'DELETE'
         }).then((resp) => {
             return resp.json();
@@ -33,21 +34,21 @@ class CourseServiceClient {
     }
 
     findAllCourses() {
-        return fetch(COURSE_URI)
+        return fetch(HOST + COURSE_URI)
             .then((resp) => {
                 return resp.json();
             });
     }
 
     findCourseById(id) {
-        return fetch(COURSE_URI + '/' + id)
+        return fetch(HOST + COURSE_URI + '/' + id)
             .then((resp) => {
                 return resp.json();
             });
     }
 
     updateCourse(id, course) {
-        return fetch(COURSE_URI + '/' + id, {
+        return fetch(HOST + COURSE_URI + '/' + id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -59,7 +60,7 @@ class CourseServiceClient {
     }
 
     createModule(id, mod) {
-        return fetch(COURSE_URI + '/' + id + '/modules', {
+        return fetch(HOST + COURSE_URI + '/' + id + '/modules', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -71,14 +72,14 @@ class CourseServiceClient {
     }
 
     findAllModulesForCourse(id) {
-        return fetch(COURSE_URI + '/' + id + '/modules')
+        return fetch(HOST + COURSE_URI + '/' + id + '/modules')
             .then((resp) => {
                 return resp.json();
             });
     }
 
     createLesson(course_id, module_id, lesson) {
-        return fetch(COURSE_URI + '/' + course_id + '/modules/' +
+        return fetch(HOST + COURSE_URI + '/' + course_id + '/modules/' +
             module_id + '/lessons', {
                 method: 'POST',
                 headers: {
@@ -91,7 +92,7 @@ class CourseServiceClient {
     }
 
     findAllLessonsForModule(course_id, module_id) {
-        return fetch(COURSE_URI + '/' + course_id + '/modules/' +
+        return fetch(HOST + COURSE_URI + '/' + course_id + '/modules/' +
             module_id + '/lessons')
             .then((resp) => {
                 return resp.json();

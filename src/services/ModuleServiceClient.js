@@ -1,4 +1,5 @@
 let _singleton = Symbol();
+const HOST = 'https://webdev-java-server.herokuapp.com';
 const MODULE_URI = '/api/modules';
 
 class ModuleServiceClient {
@@ -14,14 +15,14 @@ class ModuleServiceClient {
     }
 
     findAllModules() {
-        return fetch(MODULE_URI)
+        return fetch(HOST + MODULE_URI)
             .then((resp) => {
                 return resp.json();
             });
     }
 
     deleteModule(id) {
-        return fetch(MODULE_URI + '/' + id, {
+        return fetch(HOST + MODULE_URI + '/' + id, {
             method: 'DELETE'
         }).then((resp) => {
             return resp.json();
@@ -29,14 +30,14 @@ class ModuleServiceClient {
     }
 
     findModuleById(id) {
-        return fetch(MODULE_URI + '/' + id)
+        return fetch(HOST + MODULE_URI + '/' + id)
             .then((resp) => {
                 return resp.json();
             });
     }
 
     updateModule(id, mod) {
-        return fetch(MODULE_URI + '/' + id, {
+        return fetch(HOST + MODULE_URI + '/' + id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

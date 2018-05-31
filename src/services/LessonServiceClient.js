@@ -1,4 +1,5 @@
 let _singleton = Symbol();
+const HOST = 'https://webdev-java-server.herokuapp.com';
 const LESSON_URI = '/api/lessons';
 
 class LessonServiceClient {
@@ -14,14 +15,14 @@ class LessonServiceClient {
     }
 
     findAllLessons() {
-        return fetch(LESSON_URI)
+        return fetch(HOST + LESSON_URI)
             .then((resp) => {
                 return resp.json();
             });
     }
 
     deleteLesson(id) {
-        return fetch(LESSON_URI + '/' + id, {
+        return fetch(HOST + LESSON_URI + '/' + id, {
             method: 'DELETE'
         }).then((resp) => {
             return resp.json();
@@ -29,14 +30,14 @@ class LessonServiceClient {
     }
 
     findLessonById(id) {
-        return fetch(LESSON_URI + '/' + id)
+        return fetch(HOST + LESSON_URI + '/' + id)
             .then((resp) => {
                 return resp.json();
             });
     }
 
     updateLesson(id, lesson) {
-        return fetch(LESSON_URI + '/' + id, {
+        return fetch(HOST + LESSON_URI + '/' + id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
