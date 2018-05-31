@@ -18,7 +18,8 @@ class LessonTabs extends Component {
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
         this.getSelectedLessonTitle = this.getSelectedLessonTitle.bind(this);
-        this.getFirstLesson = this.getFirstLesson.bind(this);
+        this.getSelectedLessonID = this.getSelectedLessonID.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
 
         this.state = {
             courseId: this.props.match.params.courseId,
@@ -48,6 +49,9 @@ class LessonTabs extends Component {
         this.courseService.findAllLessonsForModule(cid, mid)
             .then((lessons) => {
                 this.setState({lessons: lessons});
+                if (lessons.length > 0) {
+                    this.setState({selectedLesson: lessons[0]});
+                }
             });
     }
 
@@ -104,28 +108,30 @@ class LessonTabs extends Component {
         return null;
     }
 
-    getFirstLesson() {
-        if (this.state.lessons) {
-            if (typeof this.state.lessons[0] !== 'undefined') {
-                console.log(this.state.lessons[0].id);
-                return this.state.lessons[0].id;
-            }
+    getSelectedLessonID() {
+        if (this.state.selectedLesson) {
+            return this.state.selectedLesson.id;
         }
         return null;
     }
 
     handleSelect(selectedKey) {
-        alert(`selected ${selectedKey}`);
+        let lessons = this.state.lessons;
+        for (var i = 0; i < lessons.length; i++) {
+            if (lessons[i].id === selectedKey) {
+                this.setState({selectedLesson: lessons[i]});
+            }
+        }
     }
 
     render() {
         return (
             <div id="module-info">
-                <Nav bsStyle="tabs" activeKey={this.getFirstLesson()} justified>
+                <Nav bsStyle="tabs" onSelect={this.handleSelect} activeKey={this.getSelectedLessonID()} justified>
                     {this.renderLessons()}
                 </Nav>
                 <Provider store={store}>
-                        <WidgetApp/>
+                    <WidgetApp/>
                 </Provider>
                 <ConfirmModal
                     show={this.state.showConfirmModal}
