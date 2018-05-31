@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import CourseServiceClient from '../services/CourseServiceClient';
 import LessonServiceClient from '../services/LessonServiceClient';
-import {ListGroup, ListGroupItem} from 'react-bootstrap';
+import {Nav, NavItem} from 'react-bootstrap';
 import ConfirmModal from '../containers/ConfirmModal';
 import '../styles/CourseEditor.css';
 
@@ -15,6 +15,7 @@ class LessonTabs extends Component {
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
         this.getSelectedLessonTitle = this.getSelectedLessonTitle.bind(this);
+        this.getFirstLesson = this.getFirstLesson.bind(this);
 
         this.state = {
             courseId: this.props.match.params.courseId,
@@ -85,30 +86,41 @@ class LessonTabs extends Component {
 
     renderLessons() {
         if (this.state.lessons) {
-            if (this.state.lessons.length > 0) {
-                return this.state.lessons.map((lesson) => {
-                    return (
-                        <ListGroupItem key={lesson.id}>
-                            {lesson.title}
-                            <button type="button" className="close" id={lesson.id} onClick={this.showModal} title="Delete lesson">
-                                <span aria-hidden="true">x</span>
-                                <span className="sr-only">Close</span>
-                            </button>
-                        </ListGroupItem>
-                    )
-                });
-            }
-            return <p>This module has no lessons!</p>;
+            return this.state.lessons.map((lesson) => {
+                return (
+                    <NavItem key={lesson.id} eventKey={lesson.id}>
+                        {lesson.title}
+                        <button type="button" className="close" id={lesson.id} onClick={this.showModal} title="Delete lesson">
+                            <span aria-hidden="true">x</span>
+                            <span className="sr-only">Close</span>
+                        </button>
+                    </NavItem>
+                )
+            });
         }
         return null;
+    }
+
+    getFirstLesson() {
+        if (this.state.lessons) {
+            if (typeof this.state.lessons[0] !== 'undefined') {
+                console.log(this.state.lessons[0].id);
+                return this.state.lessons[0].id;
+            }
+        }
+        return null;
+    }
+
+    handleSelect(selectedKey) {
+        alert(`selected ${selectedKey}`);
     }
 
     render() {
         return (
             <div id="module-info">
-                <ListGroup className="styled-list">
+                <Nav bsStyle="tabs" activeKey={this.getFirstLesson()} justified>
                     {this.renderLessons()}
-                </ListGroup>
+                </Nav>
                 <ConfirmModal
                     show={this.state.showConfirmModal}
                     onHide={this.hideModal}

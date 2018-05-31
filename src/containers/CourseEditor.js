@@ -109,7 +109,7 @@ class CourseEditor extends Component {
                         { this.state.updateNameMode ?
                             <Form inline>
                                 <FormGroup>
-                                   <FormControl type="text" value={this.state.courseName} placeholder="Course name" onChange={this.updateCourseName}/> 
+                                    <FormControl type="text" value={this.state.courseName} placeholder="Course name" onChange={this.updateCourseName}/>
                                 </FormGroup>{' '}
                                 <ButtonGroup>
                                     <Button bsSize="small" bsStyle="danger" title="Cancel changes" onClick={this.updateCourseNameMode}>
