@@ -3,6 +3,7 @@ import {Table} from 'react-bootstrap';
 import '../styles/CourseList.css';
 import CourseServiceClient from '../services/CourseServiceClient';
 import CourseRow from '../components/CourseRow';
+import NavBar from '../components/NavBar';
 class CourseList extends Component {
     constructor() {
         super();
@@ -32,19 +33,22 @@ class CourseList extends Component {
 
     render() {
         return (
-            <Table responsive hover>
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        <th>Owned By</th>
-                        <th>Last Modified</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {this.renderCourses()}
-                </tbody>
-            </Table>
+            <div>
+                <NavBar/>
+                <Table responsive hover>
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Owned By</th>
+                            <th>Last Modified</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {this.renderCourses()}
+                    </tbody>
+                </Table>
+            </div>
         )
     }
 }
