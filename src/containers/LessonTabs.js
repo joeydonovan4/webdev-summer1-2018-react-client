@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import CourseServiceClient from '../services/CourseServiceClient';
 import LessonServiceClient from '../services/LessonServiceClient';
 import {Nav, NavItem} from 'react-bootstrap';
-import ConfirmModal from '../containers/ConfirmModal';
 import '../styles/CourseEditor.css';
 import {Provider} from 'react-redux';
 import WidgetApp from './WidgetList';
 import store from "../store/index";
+import NewLessonModal from './NewLessonModal';
+import NewLessonTab from '../components/NewLessonTab';
 
 class LessonTabs extends Component {
     constructor(props) {
@@ -15,16 +16,17 @@ class LessonTabs extends Component {
         this.lessonService = LessonServiceClient.instance;
         this.findAllLessonsForModule = this.findAllLessonsForModule.bind(this);
         this.deleteLesson = this.deleteLesson.bind(this);
-        this.showModal = this.showModal.bind(this);
-        this.hideModal = this.hideModal.bind(this);
+        this.showNewLessonModal = this.showNewLessonModal.bind(this);
+        this.hideNewLessonModal = this.hideNewLessonModal.bind(this);
         this.getSelectedLessonTitle = this.getSelectedLessonTitle.bind(this);
         this.getSelectedLessonID = this.getSelectedLessonID.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
+        this.createLesson = this.createLesson.bind(this);
 
         this.state = {
             courseId: this.props.match.params.courseId,
             moduleId: this.props.match.params.moduleId,
-            showConfirmModal: false
+            newLessonModal: false
         };
     }
 
@@ -69,19 +71,27 @@ class LessonTabs extends Component {
             });
     }
 
-    showModal(event) {
-        let lessonId = parseInt(event.currentTarget.id, 10);
-        let selectedLesson = this.state.lessons.filter((l) => {
-            return l.id === lessonId;
-        })[0];
-        this.setState({
-            showConfirmModal: true,
-            selectedLesson: selectedLesson
-        });
+    showNewLessonModal() {
+        this.setState({newLessonModal: true});
     }
 
-    hideModal() {
-        this.setState({showConfirmModal: false});
+    hideNewLessonModal() {
+        this.setState({newLessonModal: false});
+    }
+
+    createLesson(lessonTitle) {
+        let lesson = {title: lessonTitle};
+        this.courseService.createLesson(
+            this.state.courseId,
+            this.state.moduleId,
+            lesson
+        ).then((newLesson) => {
+            let lessons = this.state.lessons;
+            lessons.push(newLesson);
+            this.setState({lessons: lessons});
+            console.log('Created new lesson ' + newLesson.title + ' with id ' + newLesson.id);
+            this.hideNewLessonModal();
+        });
     }
 
     getSelectedLessonTitle() {
@@ -104,7 +114,7 @@ class LessonTabs extends Component {
         }
         return ([
             lessons,
-            <NewLessonTab key="new-lesson"/>
+            <NewLessonTab key="new-lesson" test={this.showNewLessonModal}/>
         ]);
     }
 
@@ -133,20 +143,12 @@ class LessonTabs extends Component {
                 <Provider store={store}>
                     <WidgetApp/>
                 </Provider>
-                <ConfirmModal
-                    show={this.state.showConfirmModal}
-                    onHide={this.hideModal}
-                    action="delete"
-                    resource={this.getSelectedLessonTitle()}
-                    onSubmit={this.deleteLesson}/>
+                <NewLessonModal
+                    show={this.state.newLessonModal}
+                    onHide={this.hideNewLessonModal}
+                    onSubmit={this.createLesson}/>
             </div>
         )
     }
 }
 export default LessonTabs;
-
-const NewLessonTab = () => (
-    <NavItem id="new-lesson-tab" title="Create new lesson">
-        <span className="fa fa-plus"></span>
-    </NavItem>
-)
