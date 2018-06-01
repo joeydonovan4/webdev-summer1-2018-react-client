@@ -1,43 +1,23 @@
 /* The sidebar menu */
 .sidenav {
     height: 500px; /* Full-height: remove this if you want "auto" height */
-    width: 200px; /* Set the width of the sidebar */
     background-color: #c5cbe3;
-    position: fixed;
     overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 10px;
-    border-right: 2px solid #c7c7c7;
     overflow-y: scroll;
 }
 
-/* The navigation menu links */
 .sidenav a {
-    padding: 6px 8px;
-    text-decoration: none;
-    color: #2c3531;
-    display: block;
-}
-
-/* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
-    color: #434846cc;
-    text-decoration: none;
+    color: #4056a1;
 }
 
 .sidenav .form-control {
-    padding: 6px 8px;
     color: #2c3531;
 }
 
 #module-info {
     height: 500px;
-    margin-left: 200px; /* Same as the width of the sidebar */
-    padding: 10px;
+    padding: 5px;
     overflow-y: scroll;
-}
-
-#module-info > ul > li > a {
-    color: #2c3531;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
@@ -46,26 +26,31 @@
     .sidenav a {font-size: 18px;}
 }
 
-.styled-list > .list-group-item {
-    background-color: #c5cbe3;
-    border-color: #c7c7c7;
-    color: #2c3531;
+.module-item.active>a,
+.module-item.active>a:focus,
+.module-item.active>a:hover {
+    background-color: #4056a1 !important;
 }
 
-.styled-list .close {
-    margin-top: -2px;
+.module-item>a:hover {
+    background-color: #8999c5 !important;
+    color: white;
 }
 
-#new-module-btn {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    z-index: 1;
+.nav-stacked>li+li {
+    margin-top: 0px !important;
 }
 
+.nav-pills>li>a,
+.nav-pills>li.active>a {
+    border-radius: 0px !important;
+}
+
+#new-module-btn,
 #new-lesson-tab {
     background-color: #5cb85c;
     border-color: #5cb85c;
+    color: white;
 }
 
 #new-lesson-tab .fa {

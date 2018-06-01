@@ -27,12 +27,10 @@ class CourseEditor extends Component {
         this.hide = this.hide.bind(this);
         this.findCourseById = this.findCourseById.bind(this);
         this.getCourseName = this.getCourseName.bind(this);
-        this.findAllModulesForCourse = this.findAllModulesForCourse.bind(this);
         this.updateCourseNameMode = this.updateCourseNameMode.bind(this);
         this.updateCourseName = this.updateCourseName.bind(this);
         this.saveCourseName = this.saveCourseName.bind(this);
         this.state = {
-            show: false,
             updateNameMode: false
         };
     }
@@ -50,9 +48,9 @@ class CourseEditor extends Component {
         this.courseService.findCourseById(id)
             .then((course) => {
                 this.setState({
-                    course: course
+                    course: course,
+                    show: true
                 });
-                this.findAllModulesForCourse(this.props.match.params.courseId);
             });
     }
 
@@ -68,16 +66,6 @@ class CourseEditor extends Component {
             return this.state.course.id;
         }
         return null;
-    }
-
-    findAllModulesForCourse(id) {
-        this.courseService.findAllModulesForCourse(id)
-            .then((modules) => {
-                this.setState({
-                    modules: modules,
-                    show: true
-                });
-            });
     }
 
     updateCourseNameMode() {
@@ -132,8 +120,12 @@ class CourseEditor extends Component {
                 </Modal.Header>
 
                 <Modal.Body style={{ height: 500, padding: 0 }}>
-                    <ModuleList courseId={this.getCourseId()} modules={this.state.modules}/>
-                    <Route path={`/courses/:courseId/modules/:moduleId`} component={LessonTabs}/>
+                    <div className="row">
+                        <ModuleList courseId={this.getCourseId()}/>
+                        <div className="col-xs-8" style={{paddingLeft: 0}}>
+                            <Route path={`/courses/:courseId/modules/:moduleId`} component={LessonTabs}/>
+                        </div>
+                    </div>
                 </Modal.Body>
             </Modal>
         )
