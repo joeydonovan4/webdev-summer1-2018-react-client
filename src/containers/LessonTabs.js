@@ -3,9 +3,6 @@ import CourseServiceClient from '../services/CourseServiceClient';
 import LessonServiceClient from '../services/LessonServiceClient';
 import {Nav, NavItem} from 'react-bootstrap';
 import '../styles/CourseEditor.css';
-import {Provider} from 'react-redux';
-import WidgetApp from './WidgetList';
-import store from "../store/index";
 import NewLessonModal from './NewLessonModal';
 import NewLessonTab from '../components/NewLessonTab';
 
@@ -24,15 +21,15 @@ class LessonTabs extends Component {
         this.createLesson = this.createLesson.bind(this);
 
         this.state = {
-            courseId: this.props.match.params.courseId,
-            moduleId: this.props.match.params.moduleId,
+            courseId: this.props.courseId,
+            moduleId: this.props.moduleId,
             newLessonModal: false
         };
     }
 
     componentDidUpdate(prevProps) {
-        let oldModuleId = prevProps.match.params.moduleId;
-        let newModuleId = this.props.match.params.moduleId;
+        let oldModuleId = prevProps.moduleId;
+        let newModuleId = this.props.moduleId;
 
         if (oldModuleId !== newModuleId) {
             this.setState({moduleId: newModuleId});
@@ -136,13 +133,10 @@ class LessonTabs extends Component {
 
     render() {
         return (
-            <div id="module-info">
+            <div>
                 <Nav bsStyle="tabs" onSelect={this.handleSelect} activeKey={this.getSelectedLessonID()}>
                     {this.renderLessons()}
                 </Nav>
-                <Provider store={store}>
-                    <WidgetApp/>
-                </Provider>
                 <NewLessonModal
                     show={this.state.newLessonModal}
                     onHide={this.hideNewLessonModal}

@@ -3,7 +3,7 @@ import {Modal, Button, ButtonGroup, FormGroup, Form, FormControl} from 'react-bo
 import {Route} from 'react-router-dom';
 import CourseServiceClient from '../services/CourseServiceClient';
 import ModuleList from './ModuleList';
-import LessonTabs from './LessonTabs';
+import ModuleEditor from './ModuleEditor';
 import '../styles/CourseEditor.css';
 
 const modalHeaderStyles = {
@@ -123,7 +123,9 @@ class CourseEditor extends Component {
                     <div className="row">
                         <ModuleList courseId={this.getCourseId()}/>
                         <div className="col-xs-8" style={{paddingLeft: 0}}>
-                            <Route path={`/courses/:courseId/modules/:moduleId`} component={LessonTabs}/>
+                            <div id="module-info">
+                                <Route path={`/courses/:courseId/modules/:moduleId`} component={ModuleEditor}/>
+                            </div>
                         </div>
                     </div>
                 </Modal.Body>
