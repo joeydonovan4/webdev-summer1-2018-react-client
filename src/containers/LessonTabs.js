@@ -27,13 +27,20 @@ class LessonTabs extends Component {
         };
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         let oldModuleId = prevProps.moduleId;
         let newModuleId = this.props.moduleId;
 
         if (oldModuleId !== newModuleId) {
             this.setState({moduleId: newModuleId});
             this.findAllLessonsForModule(this.state.courseId, newModuleId);
+        }
+
+        let oldLesson = prevState.selectedLesson;
+        let newLesson = this.state.selectedLesson;
+
+        if (oldLesson !== newLesson) {
+            this.props.onLessonSelect(newLesson);
         }
     }
 
@@ -50,8 +57,11 @@ class LessonTabs extends Component {
                 this.setState({lessons: lessons});
                 if (lessons.length > 0) {
                     this.setState({selectedLesson: lessons[0]});
+                } else {
+                    this.setState({selectedLesson: null});
                 }
             });
+        this.props.onLessonSelect(this.state.selectedLesson);
     }
 
     deleteLesson() {
