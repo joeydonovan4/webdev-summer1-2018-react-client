@@ -144,6 +144,7 @@ class LessonTabs extends Component {
     render() {
         return (
             <div>
+                <h4>Lessons</h4>
                 <Nav bsStyle="tabs" onSelect={this.handleSelect} activeKey={this.getSelectedLessonID()}>
                     {this.renderLessons()}
                 </Nav>

@@ -48,5 +48,16 @@ class LessonServiceClient {
         })
     }
 
+    createTopic(id, topic) {
+        return fetch(HOST + LESSON_URI + '/' + id + '/topics', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(topic)
+        }).then((resp) => {
+            return resp.json();
+        });
+    }
 }
 export default LessonServiceClient;
