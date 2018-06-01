@@ -34,7 +34,7 @@ class NewLessonModal extends Component {
 
     render() {
         return (
-            <Modal show={this.props.show} onHide={this.resetForm}>
+            <Modal show={this.props.show} onHide={this.resetForm} bsSize="small">
                 <Modal.Header closeButton>
                     <Modal.Title>New Lesson</Modal.Title>
                 </Modal.Header>
