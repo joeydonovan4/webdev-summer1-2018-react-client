@@ -113,7 +113,7 @@ class LessonTabs extends Component {
         if (this.state.lessons) {
             lessons = this.state.lessons.map((lesson) => {
                 return (
-                    <NavItem key={lesson.id} eventKey={lesson.id}>
+                    <NavItem key={lesson.id} eventKey={lesson.id} className="nav-item">
                         {lesson.title}
                     </NavItem>
                 )

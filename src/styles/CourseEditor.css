@@ -26,13 +26,18 @@
     .sidenav a {font-size: 18px;}
 }
 
-.module-item.active>a,
-.module-item.active>a:focus,
-.module-item.active>a:hover {
-    background-color: #4056a1 !important;
+.nav-item>a {
+    color: #4056a1;
 }
 
-.module-item>a:hover {
+.nav-item.active>a,
+.nav-item.active>a:focus,
+.nav-item.active>a:hover {
+    background-color: #4056a1 !important;
+    color: white !important;
+}
+
+.nav-item>a:hover {
     background-color: #8999c5 !important;
     color: white;
 }
@@ -41,8 +46,8 @@
     margin-top: 0px !important;
 }
 
-.nav-pills>li>a,
-.nav-pills>li.active>a {
+.nav-item>a,
+.nav-item.active>a {
     border-radius: 0px !important;
 }
 

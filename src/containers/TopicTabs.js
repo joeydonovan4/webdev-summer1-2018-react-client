@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Nav, NavItem, Button } from "react-bootstrap";
 import NewTopicModal from './NewTopicModal';
 import LessonServiceClient from '../services/LessonServiceClient';
+import '../styles/CourseEditor.css';
 
 class TopicTabs extends Component {
     constructor(props) {
@@ -10,6 +11,7 @@ class TopicTabs extends Component {
         this.showNewTopicModal = this.showNewTopicModal.bind(this);
         this.hideNewTopicModal = this.hideNewTopicModal.bind(this);
         this.createTopic = this.createTopic.bind(this);
+        this.handleSelect = this.handleSelect.bind(this);
 
         this.state = {
             lesson: props.lesson,
@@ -35,7 +37,7 @@ class TopicTabs extends Component {
         if (this.state.topics) {
             return this.state.topics.map((topic) => {
                 return (
-                    <NavItem key={topic.id} eventKey={topic.id}>
+                    <NavItem key={topic.id} eventKey={topic.id} className="nav-item">
                         {topic.title}
                     </NavItem>
                 )
@@ -66,6 +68,22 @@ class TopicTabs extends Component {
         });
     }
 
+    handleSelect(selectedKey) {
+        let topics = this.state.topics;
+        for (var i = 0; i < topics.length; i++) {
+            if (topics[i].id === selectedKey) {
+                this.setState({selectedTopic: topics[i]});
+            }
+        }
+    }
+
+    getSelectedTopicID() {
+        if (this.state.selectedTopic) {
+            return this.state.selectedTopic.id;
+        }
+        return null;
+    }
+
     render() {
         return (
             <div>
@@ -75,7 +93,7 @@ class TopicTabs extends Component {
                         <span className="fa fa-plus"></span>
                     </Button>
                 </h4>
-                <Nav bsStyle="pills">
+                <Nav bsStyle="pills" onSelect={this.handleSelect} activeKey={this.getSelectedTopicID()}>
                     {this.renderTopics()}
                 </Nav>
                 <NewTopicModal

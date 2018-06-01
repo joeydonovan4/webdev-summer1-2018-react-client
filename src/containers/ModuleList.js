@@ -5,6 +5,7 @@ import ConfirmModal from '../containers/ConfirmModal';
 import CourseServiceClient from '../services/CourseServiceClient';
 import ModuleServiceClient from '../services/ModuleServiceClient';
 import '../styles/CourseEditor.css';
+
 class ModuleList extends Component {
     constructor(props) {
         super(props);
@@ -72,7 +73,7 @@ class ModuleList extends Component {
                 return (
                     <NavItem key={mod.id}
                         eventKey={mod.id}
-                        className="module-item"
+                        className="nav-item"
                         componentClass={Link}
                         href={`/courses/${this.state.courseId}/modules/${mod.id}`}
                         to={`/courses/${this.state.courseId}/modules/${mod.id}`}>
