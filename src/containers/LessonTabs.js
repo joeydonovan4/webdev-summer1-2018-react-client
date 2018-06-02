@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import CourseServiceClient from '../services/CourseServiceClient';
 import LessonServiceClient from '../services/LessonServiceClient';
-import {Nav, NavItem} from 'react-bootstrap';
+import {Nav, NavItem, Button} from 'react-bootstrap';
 import '../styles/CourseEditor.css';
 import NewLessonModal from './NewLessonModal';
-import NewLessonTab from '../components/NewLessonTab';
 
 class LessonTabs extends Component {
     constructor(props) {
@@ -109,9 +108,8 @@ class LessonTabs extends Component {
     }
 
     renderLessons() {
-        let lessons = null;
         if (this.state.lessons) {
-            lessons = this.state.lessons.map((lesson) => {
+            return this.state.lessons.map((lesson) => {
                 return (
                     <NavItem key={lesson.id} eventKey={lesson.id} className="nav-item">
                         {lesson.title}
@@ -119,10 +117,7 @@ class LessonTabs extends Component {
                 )
             });
         }
-        return ([
-            lessons,
-            <NewLessonTab key="new-lesson" test={this.showNewLessonModal}/>
-        ]);
+        return null;
     }
 
     getSelectedLessonID() {
@@ -144,7 +139,12 @@ class LessonTabs extends Component {
     render() {
         return (
             <div>
-                <h4>Lessons</h4>
+                <h4>
+                    <span style={{marginRight: 10}}>Lessons</span>
+                    <Button bsSize="xsmall" bsStyle="success" title="New Lesson" onClick={this.showNewLessonModal}>
+                        <span className="fa fa-plus"></span>
+                    </Button>
+                </h4>
                 <Nav bsStyle="tabs" onSelect={this.handleSelect} activeKey={this.getSelectedLessonID()}>
                     {this.renderLessons()}
                 </Nav>
