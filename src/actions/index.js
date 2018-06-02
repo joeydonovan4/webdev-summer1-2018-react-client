@@ -28,6 +28,14 @@ export const save = dispatch => (
     dispatch({type: constants.SAVE})
 );
 
+export const widgetNameUpdated = (dispatch, widgetId, updatedName) => (
+    dispatch({
+        type: constants.WIDGET_NAME_UPDATED,
+        id: widgetId,
+        name: updatedName
+    })
+)
+
 export const headingTextUpdated = (dispatch, widgetId, updatedText) => (
     dispatch({
         type: constants.HEADING_TEXT_UPDATED,

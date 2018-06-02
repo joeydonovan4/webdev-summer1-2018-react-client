@@ -6,7 +6,7 @@ const Heading = ({widget, headingTextUpdated, headingSizeUpdated}) => {
     let headingText;
     let headingSize;
     return (
-        <form>
+        <div>
             <div className="form-group">
                 <input className="form-control" placeholder="Heading text"
                     value={widget.text}
@@ -22,7 +22,7 @@ const Heading = ({widget, headingTextUpdated, headingSizeUpdated}) => {
                     <option value="3">Heading 3</option>
                 </select>
             </div>
-        </form>
+        </div>
     )
 }
 

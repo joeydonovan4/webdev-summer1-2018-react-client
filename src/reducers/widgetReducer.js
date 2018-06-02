@@ -45,6 +45,15 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                         text: 'New Widget', widgetType: 'Paragraph' }
                 ]
             }
+        case constants.WIDGET_NAME_UPDATED:
+            return {
+                widgets: state.widgets.map((widget) => {
+                    if (widget.id === action.id) {
+                        widget.name = action.name
+                    }
+                    return Object.assign({}, widget);
+                })
+            }
         case constants.HEADING_TEXT_UPDATED:
             return {
                 widgets: state.widgets.map((widget) => {

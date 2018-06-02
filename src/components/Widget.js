@@ -4,6 +4,7 @@ import { DELETE_WIDGET } from '../constants/index';
 import { Panel, ButtonGroup, Button, ButtonToolbar } from 'react-bootstrap';
 import { SELECT_WIDGET_TYPE } from '../constants/index';
 import HeadingContainer from './Heading';
+import { widgetNameUpdated } from '../actions/index';
 
 const Paragraph = () => (
     <div>
@@ -20,8 +21,9 @@ const List = () => (
     <h2>List</h2>
 );
 
-const Widget = ({widget, dispatch}) => {
+const Widget = ({widget, widgetNameUpdated, dispatch}) => {
     let selectElement;
+    let widgetName;
     return (
         <Panel id={`widget-${widget.id}`}>
             <Panel.Heading style={{backgroundColor: '#c5cbe3'}}>
@@ -57,13 +59,34 @@ const Widget = ({widget, dispatch}) => {
                 </Panel.Title>
             </Panel.Heading>
             <Panel.Body>
-                {widget.className === 'Heading' && <HeadingContainer widget={widget}/>}
-                {widget.className === 'Paragraph' && <Paragraph/>}
-                {widget.className === 'List' && <List/>}
-                {widget.className === 'Image' && <Image/>}
+                <form>
+                    {widget.className === 'Heading' && <HeadingContainer widget={widget}/>}
+                    {widget.className === 'Paragraph' && <Paragraph/>}
+                    {widget.className === 'List' && <List/>}
+                    {widget.className === 'Image' && <Image/>}
+                    <div className="form-group">
+                        <input className="form-control" placeholder="Widget name"
+                            value={widget.name}
+                            onChange={() => widgetNameUpdated(widget.id, widgetName.value)}
+                            ref={node => widgetName = node}/>
+                    </div>
+                </form>
             </Panel.Body>
         </Panel>
     )
 }
-const WidgetContainer = connect()(Widget)
+
+const stateToPropertiesMapper = (state) => (
+    {state}
+);
+
+const dispatcherToPropsMapper = dispatch => ({
+    widgetNameUpdated: (widgetId, updatedName) =>
+        widgetNameUpdated(dispatch, widgetId, updatedName)
+});
+
+const WidgetContainer = connect(
+    stateToPropertiesMapper,
+    dispatcherToPropsMapper
+)(Widget)
 export default WidgetContainer;
