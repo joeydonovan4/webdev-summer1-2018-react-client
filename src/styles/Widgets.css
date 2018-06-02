@@ -6,3 +6,7 @@
 #new-widget-btn:hover {
     background-color: #4a60a7;
 }
+
+#paragraph-textarea {
+    resize: none;
+}

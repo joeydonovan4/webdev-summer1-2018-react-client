@@ -70,3 +70,11 @@ export const headingSizeUpdated = (dispatch, widgetId, updatedSize) => (
         size: updatedSize
     })
 );
+
+export const paragraphTextUpdated = (dispatch, widgetId, updatedText) => (
+    dispatch({
+        type: constants.PARAGRAPH_TEXT_UPDATED,
+        id: widgetId,
+        text: updatedText
+    })
+);

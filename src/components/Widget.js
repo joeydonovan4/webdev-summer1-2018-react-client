@@ -2,14 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Panel, ButtonGroup, Button, ButtonToolbar } from 'react-bootstrap';
 import HeadingContainer from './Heading';
+import ParagraphContainer from './Paragraph';
 import { widgetNameUpdated, widgetTypeUpdated, deleteWidget } from '../actions/index';
-
-const Paragraph = () => (
-    <div>
-        <h2>Paragraph</h2>
-        <textarea></textarea>
-    </div>
-);
 
 const Image = () => (
     <h2>Image</h2>
@@ -55,7 +49,7 @@ const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget}) =>
             <Panel.Body>
                 <form>
                     {widget.className === 'Heading' && <HeadingContainer widget={widget}/>}
-                    {widget.className === 'Paragraph' && <Paragraph/>}
+                    {widget.className === 'Paragraph' && <ParagraphContainer widget={widget}/>}
                     {widget.className === 'List' && <List/>}
                     {widget.className === 'Image' && <Image/>}
                     <div className="form-group">

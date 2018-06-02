@@ -53,6 +53,7 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                     return Object.assign({}, widget);
                 })
             }
+        case constants.PARAGRAPH_TEXT_UPDATED:
         case constants.HEADING_TEXT_UPDATED:
             return {
                 widgets: state.widgets.map((widget) => {
