@@ -1,7 +1,8 @@
 import * as constants from "../constants/index";
 
+const HOST = 'https://webdev-java-server.herokuapp.com';
+
 export const findAllWidgets = dispatch => {
-    let HOST = 'https://webdev-java-server.herokuapp.com';
     fetch(HOST + '/api/widgets')
         .then(response => (response.json()))
         .then(widgets => dispatch({
@@ -11,7 +12,6 @@ export const findAllWidgets = dispatch => {
 };
 
 export const findWidgetsForLessonTopic = (dispatch, lessonId, topicId) => {
-    let HOST = 'https://webdev-java-server.herokuapp.com';
     fetch(HOST + '/api/lessons/' + lessonId + '/topics/' + topicId + '/widgets')
         .then(response => (response.json()))
         .then(widgets => dispatch({
@@ -19,6 +19,17 @@ export const findWidgetsForLessonTopic = (dispatch, lessonId, topicId) => {
             widgets: widgets
         }));
 };
+
+export const deleteWidget = (dispatch, widgetId) => {
+    fetch(HOST + '/api/widgets/' + widgetId, {
+        method: 'delete'
+    })
+    .then(response => (response.json()))
+    .then(widgets => dispatch({
+            type: constants.DELETE_WIDGET,
+            id: widgetId
+    }));
+}
 
 export const addWidget = dispatch => (
     dispatch({type: constants.ADD_WIDGET})

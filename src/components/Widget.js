@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { DELETE_WIDGET } from '../constants/index';
 import { Panel, ButtonGroup, Button, ButtonToolbar } from 'react-bootstrap';
 import HeadingContainer from './Heading';
-import { widgetNameUpdated, widgetTypeUpdated } from '../actions/index';
+import { widgetNameUpdated, widgetTypeUpdated, deleteWidget } from '../actions/index';
 
 const Paragraph = () => (
     <div>
@@ -20,7 +19,7 @@ const List = () => (
     <h2>List</h2>
 );
 
-const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, dispatch}) => {
+const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget}) => {
     let selectElement;
     let widgetName;
     return (
@@ -33,8 +32,8 @@ const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, dispatch}) => {
                             <Button bsStyle="warning" bsSize="xsmall" title="Move down"><span className="fa fa-arrow-down"></span></Button>
                         </ButtonGroup>
                         <ButtonGroup>
-                            <Button bsStyle="danger" bsSize="xsmall" onClick={e => (
-                                dispatch({type: DELETE_WIDGET, id: widget.id})
+                            <Button bsStyle="danger" bsSize="xsmall" onClick={() => (
+                                deleteWidget(widget.id)
                             )} title="Delete widget">
                                 <span className="fa fa-trash"></span>
                             </Button>
@@ -79,7 +78,8 @@ const dispatcherToPropsMapper = dispatch => ({
     widgetNameUpdated: (widgetId, updatedName) =>
         widgetNameUpdated(dispatch, widgetId, updatedName),
     widgetTypeUpdated: (widgetId, widgetType) =>
-        widgetTypeUpdated(dispatch, widgetId, widgetType)
+        widgetTypeUpdated(dispatch, widgetId, widgetType),
+    deleteWidget: (widgetId) => deleteWidget(dispatch, widgetId)
 });
 
 const WidgetContainer = connect(

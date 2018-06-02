@@ -3,7 +3,6 @@ import * as constants from "../constants/index";
 export const widgetReducer = (state = {widgets: []}, action) => {
     switch (action.type) {
         case constants.SELECT_WIDGET_TYPE:
-            console.log(action);
             let newState = {
                 widgets: state.widgets.filter((widget) => {
                     if (widget.id === action.id) {
