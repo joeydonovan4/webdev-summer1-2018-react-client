@@ -3,11 +3,19 @@ import { connect } from "react-redux";
 import * as actions from "../actions";
 import { Button, PanelGroup } from 'react-bootstrap';
 import WidgetContainer from "../components/Widget";
+import '../styles/Widgets.css';
 
 class WidgetList extends Component {
-    constructor(props) {
-        super(props);
-        this.props.findAllWidgets();
+    componentDidMount() {
+        this.props.findWidgetsForLessonTopic(this.props.lessonId, this.props.topicId);
+    }
+
+    componentDidUpdate(prevProps) {
+        let oldTopicId = prevProps.topicId;
+        let newTopicId = this.props.topicId;
+        if (oldTopicId !== newTopicId) {
+            this.props.findWidgetsForLessonTopic(this.props.lessonId, newTopicId);
+        }
     }
 
     renderWidgets() {
@@ -28,6 +36,9 @@ class WidgetList extends Component {
                 <PanelGroup id="widget-panels">
                     {this.renderWidgets()}
                 </PanelGroup>
+                <Button id="new-widget-btn" className="pull-right" title="New widget">
+                    New Widget
+                </Button>
             </div>
         )
     }

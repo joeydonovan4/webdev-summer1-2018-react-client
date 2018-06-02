@@ -24,7 +24,11 @@ class TopicTabs extends Component {
         let newLesson = this.props.lesson;
 
         if (oldLesson !== newLesson) {
-            this.setState({lesson: newLesson});
+            this.setState({
+                lesson: newLesson,
+                selectedTopic: null
+            });
+            this.props.onTopicSelect(null);
             let topics = null;
             if (newLesson) {
                 topics = newLesson.topics;
@@ -73,6 +77,7 @@ class TopicTabs extends Component {
         for (var i = 0; i < topics.length; i++) {
             if (topics[i].id === selectedKey) {
                 this.setState({selectedTopic: topics[i]});
+                this.props.onTopicSelect(topics[i]);
             }
         }
     }

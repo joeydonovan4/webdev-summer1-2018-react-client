@@ -1,8 +1,8 @@
-import { FIND_ALL_WIDGETS, ADD_WIDGET, DELETE_WIDGET, SAVE } from "../constants/index";
+import { FIND_ALL_WIDGETS, ADD_WIDGET, DELETE_WIDGET, SAVE, SELECT_WIDGET_TYPE, FIND_WIDGETS_FOR_LESSON_TOPIC } from "../constants/index";
 
 export const widgetReducer = (state = {widgets: []}, action) => {
     switch (action.type) {
-        case 'SELECT_WIDGET_TYPE':
+        case SELECT_WIDGET_TYPE:
             console.log(action);
             let newState = {
                 widgets: state.widgets.filter((widget) => {
@@ -24,6 +24,10 @@ export const widgetReducer = (state = {widgets: []}, action) => {
             });
             return state;
         case FIND_ALL_WIDGETS:
+            return {
+                widgets: action.widgets
+            }
+        case FIND_WIDGETS_FOR_LESSON_TOPIC:
             return {
                 widgets: action.widgets
             }

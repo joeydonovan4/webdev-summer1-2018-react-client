@@ -1,0 +1,8 @@
+#new-widget-btn {
+    background-color: #4056a1;
+    color: white;
+}
+
+#new-widget-btn:hover {
+    background-color: #4a60a7;
+}
