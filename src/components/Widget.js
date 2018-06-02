@@ -51,8 +51,7 @@ const Widget = ({widget, dispatch}) => {
                     </ButtonToolbar>
                 </div>
                 <Panel.Title componentClass="h2">
-                    <span style={{marginRight: 5}}>{widget.className} Widget</span>
-                    <select value={widget.className}
+                    <select value={widget.className} style={{marginRight: 5}}
                         onChange={e =>
                             dispatch({
                                 type: SELECT_WIDGET_TYPE,
@@ -64,6 +63,7 @@ const Widget = ({widget, dispatch}) => {
                         <option>List</option>
                         <option>Image</option>
                     </select>
+                    <span>&nbsp;Widget</span>
                 </Panel.Title>
             </Panel.Heading>
             <Panel.Body>
