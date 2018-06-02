@@ -7,7 +7,7 @@ export const widgetReducer = (state = {widgets: []}, action) => {
             let newState = {
                 widgets: state.widgets.filter((widget) => {
                     if (widget.id === action.id) {
-                        widget.widgetType = action.widgetType
+                        widget.className = action.className
                     }
                     return true;
                 })

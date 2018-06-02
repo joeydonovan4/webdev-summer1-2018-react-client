@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { save, findAllWidgets, addWidget } from "../actions/index";
+import * as actions from "../actions";
+import { Button, PanelGroup } from 'react-bootstrap';
 import WidgetContainer from "../components/Widget";
 
 class WidgetList extends Component {
@@ -8,17 +9,25 @@ class WidgetList extends Component {
         super(props);
         this.props.findAllWidgets();
     }
+
+    renderWidgets() {
+        return this.props.widgets.map(widget => (
+            <WidgetContainer widget={widget} key={widget.id}/>
+        ));
+    }
+
     render() {
         return (
             <div>
-                <h1>Widget List {this.props.widgets.length}</h1>
-                <button onClick={this.props.save}>Save</button>
-                <ul>
-                    {this.props.widgets.map(widget => (
-                        <WidgetContainer widget={widget} key={widget.id}/>
-                    ))}
-                </ul>
-                <button onClick={this.props.addWidget}>Add Widget</button>
+                <h4>
+                    <span style={{marginRight: 10}}>Widgets</span>
+                    <Button className="pull-right" bsSize="xsmall" bsStyle="success" title="Save changes">
+                        Save
+                    </Button>
+                </h4>
+                <PanelGroup id="widget-panels">
+                    {this.renderWidgets()}
+                </PanelGroup>
             </div>
         )
     }
@@ -29,9 +38,11 @@ const stateToPropertiesMapper = (state) => (
 );
 
 const dispatcherToPropsMapper = dispatch => ({
-    findAllWidgets: () => findAllWidgets(dispatch),
-    addWidget: () => addWidget(dispatch),
-    save: () => save(dispatch)
+    findAllWidgets: () => actions.findAllWidgets(dispatch),
+    findWidgetsForLessonTopic: (lessonId, topicId) =>
+        actions.findWidgetsForLessonTopic(dispatch, lessonId, topicId),
+    addWidget: () => actions.addWidget(dispatch),
+    save: () => actions.save(dispatch)
 });
 
 const WidgetApp = connect(
