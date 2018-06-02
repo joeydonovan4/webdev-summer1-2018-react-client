@@ -1,4 +1,4 @@
-import { FIND_ALL_WIDGETS, FIND_WIDGETS_FOR_LESSON_TOPIC, ADD_WIDGET, SAVE } from "../constants/index";
+import { FIND_ALL_WIDGETS, FIND_WIDGETS_FOR_LESSON_TOPIC, ADD_WIDGET, SAVE, HEADING_TEXT_UPDATED } from "../constants/index";
 
 export const findAllWidgets = dispatch => {
     let HOST = 'https://webdev-java-server.herokuapp.com';
@@ -26,4 +26,12 @@ export const addWidget = dispatch => (
 
 export const save = dispatch => (
     dispatch({type: SAVE})
+);
+
+export const headingTextUpdated = (dispatch, widgetId, updatedText) => (
+    dispatch({
+        type: HEADING_TEXT_UPDATED,
+        id: widgetId,
+        text: updatedText
+    })
 );

@@ -3,17 +3,7 @@ import { connect } from 'react-redux';
 import { DELETE_WIDGET } from '../constants/index';
 import { Panel, ButtonGroup, Button, ButtonToolbar } from 'react-bootstrap';
 import { SELECT_WIDGET_TYPE } from '../constants/index';
-
-const Heading = () => (
-    <div>
-        <h2>Heading</h2>
-        <select>
-            <option>Heading 1</option>
-            <option>Heading 2</option>
-            <option>Heading 3</option>
-        </select>
-    </div>
-);
+import HeadingContainer from './Heading';
 
 const Paragraph = () => (
     <div>
@@ -67,7 +57,7 @@ const Widget = ({widget, dispatch}) => {
                 </Panel.Title>
             </Panel.Heading>
             <Panel.Body>
-                {widget.className === 'Heading' && <Heading/>}
+                {widget.className === 'Heading' && <HeadingContainer widget={widget}/>}
                 {widget.className === 'Paragraph' && <Paragraph/>}
                 {widget.className === 'List' && <List/>}
                 {widget.className === 'Image' && <Image/>}

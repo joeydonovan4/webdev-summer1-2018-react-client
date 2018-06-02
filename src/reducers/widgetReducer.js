@@ -1,8 +1,8 @@
-import { FIND_ALL_WIDGETS, ADD_WIDGET, DELETE_WIDGET, SAVE, SELECT_WIDGET_TYPE, FIND_WIDGETS_FOR_LESSON_TOPIC } from "../constants/index";
+import * as constants from "../constants/index";
 
 export const widgetReducer = (state = {widgets: []}, action) => {
     switch (action.type) {
-        case SELECT_WIDGET_TYPE:
+        case constants.SELECT_WIDGET_TYPE:
             console.log(action);
             let newState = {
                 widgets: state.widgets.filter((widget) => {
@@ -13,7 +13,7 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                 })
             }
             return JSON.parse(JSON.stringify(newState));
-        case SAVE:
+        case constants.SAVE:
             let HOST = 'https://webdev-java-server.herokuapp.com';
             fetch(HOST + '/api/widgets/save', {
                 method: 'post',
@@ -23,27 +23,37 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                 }
             });
             return state;
-        case FIND_ALL_WIDGETS:
+        case constants.FIND_ALL_WIDGETS:
             return {
                 widgets: action.widgets
             }
-        case FIND_WIDGETS_FOR_LESSON_TOPIC:
+        case constants.FIND_WIDGETS_FOR_LESSON_TOPIC:
             return {
                 widgets: action.widgets
             }
-        case DELETE_WIDGET:
+        case constants.DELETE_WIDGET:
             return {
                 widgets: state.widgets.filter(widget => (
                     widget.id !== action.id
                 ))
             }
-        case ADD_WIDGET:
+        case constants.ADD_WIDGET:
             return {
                 widgets: [
                     ...state.widgets,
                     {id: state.widgets.length + 1,
                         text: 'New Widget', widgetType: 'Paragraph' }
                 ]
+            }
+        case constants.HEADING_TEXT_UPDATED:
+            console.log(action);
+            return {
+                widgets: state.widgets.map((widget) => {
+                    if (widget.id === action.id) {
+                        widget.text = action.text
+                    }
+                    return Object.assign({}, widget);
+                })
             }
         default:
             return state;
