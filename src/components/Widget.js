@@ -2,9 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { DELETE_WIDGET } from '../constants/index';
 import { Panel, ButtonGroup, Button, ButtonToolbar } from 'react-bootstrap';
-import { SELECT_WIDGET_TYPE } from '../constants/index';
 import HeadingContainer from './Heading';
-import { widgetNameUpdated } from '../actions/index';
+import { widgetNameUpdated, widgetTypeUpdated } from '../actions/index';
 
 const Paragraph = () => (
     <div>
@@ -21,7 +20,7 @@ const List = () => (
     <h2>List</h2>
 );
 
-const Widget = ({widget, widgetNameUpdated, dispatch}) => {
+const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, dispatch}) => {
     let selectElement;
     let widgetName;
     return (
@@ -44,16 +43,12 @@ const Widget = ({widget, widgetNameUpdated, dispatch}) => {
                 </div>
                 <Panel.Title componentClass="h2">
                     <select value={widget.className} style={{marginRight: 5}}
-                        onChange={e =>
-                            dispatch({
-                                type: SELECT_WIDGET_TYPE,
-                                id: widget.id,
-                                className: selectElement.value
-                            })} ref={node => selectElement = node}>
-                        <option>Heading</option>
-                        <option>Paragraph</option>
-                        <option>List</option>
-                        <option>Image</option>
+                        onChange={e => widgetTypeUpdated(widget.id, selectElement.value)}
+                        ref={node => selectElement = node}>
+                        <option value="Heading">Heading</option>
+                        <option value="Paragraph">Paragraph</option>
+                        <option value="List">List</option>
+                        <option value="Image">Image</option>
                     </select>
                     <span>&nbsp;Widget</span>
                 </Panel.Title>
@@ -82,7 +77,9 @@ const stateToPropertiesMapper = (state) => (
 
 const dispatcherToPropsMapper = dispatch => ({
     widgetNameUpdated: (widgetId, updatedName) =>
-        widgetNameUpdated(dispatch, widgetId, updatedName)
+        widgetNameUpdated(dispatch, widgetId, updatedName),
+    widgetTypeUpdated: (widgetId, widgetType) =>
+        widgetTypeUpdated(dispatch, widgetId, widgetType)
 });
 
 const WidgetContainer = connect(
