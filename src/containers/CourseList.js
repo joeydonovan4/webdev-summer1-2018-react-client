@@ -27,7 +27,7 @@ class CourseList extends Component {
                 return <CourseRow key={course.id} course={course}/>
             });
         } else {
-            return <tr><td align="center" colSpan="4">No courses!</td></tr>
+            return <tr><td align="center" colSpan="4"><span className="fa fa-spinner fa-pulse"></span></td></tr>
         }
     }
 
