@@ -82,6 +82,15 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                     return Object.assign({}, widget);
                 })
             }
+        case constants.SRC_UPDATED:
+            return {
+                widgets: state.widgets.map((widget) => {
+                    if (widget.id === action.id) {
+                        widget.src = action.src;
+                    }
+                    return Object.assign({}, widget);
+                })
+            }
         default:
             return state;
     }

@@ -4,11 +4,8 @@ import { Panel, ButtonGroup, Button, ButtonToolbar } from 'react-bootstrap';
 import HeadingContainer from './Heading';
 import ParagraphContainer from './Paragraph';
 import ListContainer from './List';
+import ImageContainer from './Image';
 import { widgetNameUpdated, widgetTypeUpdated, deleteWidget } from '../actions/index';
-
-const Image = () => (
-    <h2>Image</h2>
-);
 
 const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget}) => {
     let selectElement;
@@ -48,7 +45,7 @@ const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget}) =>
                     {widget.className === 'Heading' && <HeadingContainer widget={widget}/>}
                     {widget.className === 'Paragraph' && <ParagraphContainer widget={widget}/>}
                     {widget.className === 'List' && <ListContainer widget={widget}/>}
-                    {widget.className === 'Image' && <Image/>}
+                    {widget.className === 'Image' && <ImageContainer widget={widget}/>}
                     <div className="form-group">
                         <input className="form-control" placeholder="Widget name"
                             value={widget.name}
