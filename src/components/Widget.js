@@ -3,14 +3,11 @@ import { connect } from 'react-redux';
 import { Panel, ButtonGroup, Button, ButtonToolbar } from 'react-bootstrap';
 import HeadingContainer from './Heading';
 import ParagraphContainer from './Paragraph';
+import ListContainer from './List';
 import { widgetNameUpdated, widgetTypeUpdated, deleteWidget } from '../actions/index';
 
 const Image = () => (
     <h2>Image</h2>
-);
-
-const List = () => (
-    <h2>List</h2>
 );
 
 const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget}) => {
@@ -50,7 +47,7 @@ const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget}) =>
                 <form>
                     {widget.className === 'Heading' && <HeadingContainer widget={widget}/>}
                     {widget.className === 'Paragraph' && <ParagraphContainer widget={widget}/>}
-                    {widget.className === 'List' && <List/>}
+                    {widget.className === 'List' && <ListContainer widget={widget}/>}
                     {widget.className === 'Image' && <Image/>}
                     <div className="form-group">
                         <input className="form-control" placeholder="Widget name"

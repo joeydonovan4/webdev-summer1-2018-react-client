@@ -7,6 +7,11 @@
     background-color: #4a60a7;
 }
 
-#paragraph-textarea {
+#paragraph-textarea,
+#list-textarea {
     resize: none;
+}
+
+#list-textarea {
+    width: 100% !important;
 }
