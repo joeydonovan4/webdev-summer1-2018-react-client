@@ -5,8 +5,8 @@ const Preview = ({widget}) => {
     return (
         <div>
             {widget.className === 'Heading' && <HeadingPreview heading={widget}/>}
-            {/* {widget.className === 'Paragraph' && <ParagraphContainer widget={widget}/>}
-            {widget.className === 'List' && <ListContainer widget={widget}/>}
+            {widget.className === 'Paragraph' && <ParagraphPreview paragraph={widget}/>}
+            {/* {widget.className === 'List' && <ListContainer widget={widget}/>}
             {widget.className === 'Image' && <ImageContainer widget={widget}/>}
             {widget.className === 'Link' && <LinkContainer widget={widget}/>} */}
         </div>
@@ -24,6 +24,10 @@ const HeadingPreview = ({heading}) => {
         default:
             return null;
     }
+};
+
+const ParagraphPreview = ({paragraph}) => {
+    return <p>{paragraph.text}</p>
 };
 
 const stateToPropertiesMapper = (state) => (
