@@ -9,7 +9,7 @@ import LinkContainer from './Link';
 import PreviewContainer from './Preview';
 import { widgetNameUpdated, widgetTypeUpdated, deleteWidget } from '../actions/index';
 
-const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget}) => {
+const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget, preview}) => {
     let selectElement;
     let widgetName;
     return (
@@ -44,7 +44,7 @@ const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget}) =>
                 </Panel.Title>
             </Panel.Heading>
             <Panel.Body>
-                <div id="widget-form">
+                <div hidden={preview === "ON"}>
                     <form>
                         {widget.className === 'Heading' && <HeadingContainer widget={widget}/>}
                         {widget.className === 'Paragraph' && <ParagraphContainer widget={widget}/>}
@@ -68,9 +68,9 @@ const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget}) =>
     )
 }
 
-const stateToPropertiesMapper = (state) => (
-    {state}
-);
+const stateToPropertiesMapper = (state) => ({
+    preview: state.preview
+});
 
 const dispatcherToPropsMapper = dispatch => ({
     widgetNameUpdated: (widgetId, updatedName) =>
