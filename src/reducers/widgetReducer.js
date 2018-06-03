@@ -58,7 +58,7 @@ export const widgetReducer = (state = {widgets: [], preview: "OFF"}, action) => 
                 widgets: [
                     ...state.widgets,
                     {id: state.widgets.length + 1,
-                        text: 'New Widget', widgetType: 'Paragraph' }
+                        className: 'Paragraph', order: state.widgets.slice(-1).order + 1}
                 ],
                 preview: state.preview
             }

@@ -48,7 +48,7 @@ class WidgetList extends Component {
                 <PanelGroup id="widget-panels">
                     {this.renderWidgets()}
                 </PanelGroup>
-                <Button id="new-widget-btn" className="pull-right" title="New widget">
+                <Button id="new-widget-btn" className="pull-right" title="New widget" onClick={this.props.addWidget}>
                     New Widget
                 </Button>
             </div>
