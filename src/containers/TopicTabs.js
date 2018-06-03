@@ -8,33 +8,41 @@ class TopicTabs extends Component {
     constructor(props) {
         super(props);
         this.lessonService = LessonServiceClient.instance;
+        this.findTopicsByLesson = this.findTopicsByLesson.bind(this);
         this.showNewTopicModal = this.showNewTopicModal.bind(this);
         this.hideNewTopicModal = this.hideNewTopicModal.bind(this);
         this.createTopic = this.createTopic.bind(this);
         this.handleSelect = this.handleSelect.bind(this);
 
         this.state = {
-            lesson: props.lesson,
+            lessonId: props.lessonId,
             newTopicModal: false
         };
     }
 
+    componentDidMount() {
+        this.findTopicsByLesson(this.state.lessonId);
+    }
+
     componentDidUpdate(prevProps) {
-        let oldLesson = prevProps.lesson;
-        let newLesson = this.props.lesson;
+        let oldLesson = prevProps.lessonId;
+        let newLesson = this.props.lessonId;
 
         if (oldLesson !== newLesson) {
             this.setState({
-                lesson: newLesson,
+                lessonId: newLesson,
                 selectedTopic: null
             });
             this.props.onTopicSelect(null);
-            let topics = null;
-            if (newLesson) {
-                topics = newLesson.topics;
-            }
-            this.setState({topics: topics});
+            this.findTopicsByLesson(newLesson);
         }
+    }
+
+    findTopicsByLesson(id) {
+        this.lessonService.findTopicsByLesson(id)
+            .then(topics => {
+                this.setState({topics: topics});
+            });
     }
 
     renderTopics() {

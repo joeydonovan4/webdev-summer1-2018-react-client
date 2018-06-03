@@ -59,5 +59,12 @@ class LessonServiceClient {
             return resp.json();
         });
     }
+
+    findTopicsByLesson(id) {
+        return fetch(HOST + LESSON_URI + '/' + id + '/topics')
+            .then((resp) => {
+                return resp.json();
+            });
+    }
 }
 export default LessonServiceClient;

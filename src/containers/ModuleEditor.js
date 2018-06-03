@@ -55,6 +55,10 @@ class ModuleEditor extends Component {
         return null;
     }
 
+    shouldRenderTopics() {
+        return this.state.selectedLesson;
+    }
+
     shouldRenderWidgets() {
         return this.state.selectedLesson && this.state.selectedTopic;
     }
@@ -63,7 +67,9 @@ class ModuleEditor extends Component {
         return (
             <div>
                 <LessonTabs courseId={this.state.courseId} moduleId={this.state.moduleId} onLessonSelect={this.setSelectedLesson}/>
-                <TopicTabs courseId={this.state.courseId} moduleId={this.state.moduleId} lesson={this.getSelectedLesson()} onTopicSelect={this.setSelectedTopic}/>
+                { this.shouldRenderTopics() &&
+                    <TopicTabs courseId={this.state.courseId} moduleId={this.state.moduleId} lessonId={this.getSelectedLesson().id} onTopicSelect={this.setSelectedTopic}/>
+                }
                 { this.shouldRenderWidgets() &&
                     <Provider store={store}>
                         <WidgetApp lessonId={this.getSelectedLesson().id} topicId={this.getSelectedTopic().id}/>
