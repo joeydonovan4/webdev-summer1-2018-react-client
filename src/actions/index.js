@@ -102,3 +102,19 @@ export const srcUpdated = (dispatch, widgetId, srcUpdated) => (
         src: srcUpdated
     })
 );
+
+export const linkTextUpdated = (dispatch, widgetId, updatedText) => (
+    dispatch({
+        type: constants.LINK_TEXT_UPDATED,
+        id: widgetId,
+        text: updatedText
+    })
+);
+
+export const hrefUpdated = (dispatch, widgetId, updatedHref) => (
+    dispatch({
+        type: constants.HREF_UPDATED,
+        id: widgetId,
+        href: updatedHref
+    })
+);

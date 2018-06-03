@@ -53,6 +53,7 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                     return Object.assign({}, widget);
                 })
             }
+        case constants.LINK_TEXT_UPDATED:
         case constants.LIST_TEXT_UPDATED:
         case constants.PARAGRAPH_TEXT_UPDATED:
         case constants.HEADING_TEXT_UPDATED:
@@ -87,6 +88,15 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                 widgets: state.widgets.map((widget) => {
                     if (widget.id === action.id) {
                         widget.src = action.src;
+                    }
+                    return Object.assign({}, widget);
+                })
+            }
+        case constants.HREF_UPDATED:
+            return {
+                widgets: state.widgets.map((widget) => {
+                    if (widget.id === action.id) {
+                        widget.href = action.href;
                     }
                     return Object.assign({}, widget);
                 })

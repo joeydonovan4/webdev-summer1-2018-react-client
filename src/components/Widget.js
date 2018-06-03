@@ -5,6 +5,7 @@ import HeadingContainer from './Heading';
 import ParagraphContainer from './Paragraph';
 import ListContainer from './List';
 import ImageContainer from './Image';
+import LinkContainer from './Link';
 import { widgetNameUpdated, widgetTypeUpdated, deleteWidget } from '../actions/index';
 
 const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget}) => {
@@ -46,6 +47,7 @@ const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget}) =>
                     {widget.className === 'Paragraph' && <ParagraphContainer widget={widget}/>}
                     {widget.className === 'List' && <ListContainer widget={widget}/>}
                     {widget.className === 'Image' && <ImageContainer widget={widget}/>}
+                    {widget.className === 'Link' && <LinkContainer widget={widget}/>}
                     <div className="form-group">
                         <input className="form-control" placeholder="Widget name"
                             value={widget.name}
