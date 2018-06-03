@@ -122,3 +122,17 @@ export const hrefUpdated = (dispatch, widgetId, updatedHref) => (
         href: updatedHref
     })
 );
+
+export const moveWidgetUp = (dispatch, widget) => (
+    dispatch({
+        type: constants.MOVE_WIDGET_UP,
+        widget: widget
+    })
+);
+
+export const moveWidgetDown = (dispatch, widget) => (
+    dispatch({
+        type: constants.MOVE_WIDGET_DOWN,
+        widget: widget
+    })
+);

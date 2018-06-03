@@ -7,9 +7,9 @@ import ListContainer from './List';
 import ImageContainer from './Image';
 import LinkContainer from './Link';
 import PreviewContainer from './Preview';
-import { widgetNameUpdated, widgetTypeUpdated, deleteWidget } from '../actions/index';
+import { widgetNameUpdated, widgetTypeUpdated, deleteWidget, moveWidgetUp, moveWidgetDown } from '../actions/index';
 
-const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget, preview}) => {
+const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget, preview, moveWidgetUp, moveWidgetDown}) => {
     let selectElement;
     let widgetName;
     return (
@@ -18,13 +18,19 @@ const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget, pre
                 <div className="pull-right">
                     <ButtonToolbar>
                         <ButtonGroup>
-                            <Button bsStyle="warning" bsSize="xsmall" title="Move up"><span className="fa fa-arrow-up"></span></Button>
-                            <Button bsStyle="warning" bsSize="xsmall" title="Move down"><span className="fa fa-arrow-down"></span></Button>
+                            <Button bsStyle="warning" title="Move up" bsSize="xsmall" onClick={() =>
+                                moveWidgetUp(widget)}>
+                                <span className="fa fa-arrow-up"></span>
+                            </Button>
+                            <Button bsStyle="warning" title="Move down" bsSize="xsmall" onClick={() =>
+                                moveWidgetDown(widget)}>
+                                <span className="fa fa-arrow-down"></span>
+                            </Button>
                         </ButtonGroup>
                         <ButtonGroup>
-                            <Button bsStyle="danger" bsSize="xsmall" onClick={() => (
+                            <Button bsStyle="danger" bsSize="xsmall" onClick={() =>
                                 deleteWidget(widget.id)
-                            )} title="Delete widget">
+                            } title="Delete widget">
                                 <span className="fa fa-trash"></span>
                             </Button>
                         </ButtonGroup>
@@ -77,6 +83,10 @@ const dispatcherToPropsMapper = dispatch => ({
         widgetNameUpdated(dispatch, widgetId, updatedName),
     widgetTypeUpdated: (widgetId, widgetType) =>
         widgetTypeUpdated(dispatch, widgetId, widgetType),
+    moveWidgetUp: (widget) =>
+        moveWidgetUp(dispatch, widget),
+    moveWidgetDown: (widget) =>
+        moveWidgetDown(dispatch, widget),
     deleteWidget: (widgetId) => deleteWidget(dispatch, widgetId)
 });
 

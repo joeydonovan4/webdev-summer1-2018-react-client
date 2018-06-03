@@ -20,7 +20,7 @@ class WidgetList extends Component {
 
     renderWidgets() {
         if (this.props.widgets) {
-            return this.props.widgets.map(widget => (
+            return this.props.widgets.sort((w1, w2) => w1.order > w2.order).map(widget => (
                 <WidgetContainer widget={widget} key={widget.id}/>
             ));
         }

@@ -1,6 +1,7 @@
 import * as constants from "../constants/index";
 
 export const widgetReducer = (state = {widgets: [], preview: "OFF"}, action) => {
+    let idx, temp;
     switch (action.type) {
         case constants.PREVIEW_MODE:
             if (state.preview === "OFF") {
@@ -132,6 +133,40 @@ export const widgetReducer = (state = {widgets: [], preview: "OFF"}, action) => 
                     return Object.assign({}, widget);
                 }),
                 preview: state.preview
+            }
+        case constants.MOVE_WIDGET_UP:
+            idx = state.widgets.indexOf(action.widget);
+            if (idx === 0) {
+                return state;
+            } else {
+                temp = state.widgets[idx-1].order;
+                state.widgets[idx-1].order = action.widget.order;
+                return {
+                    widgets: state.widgets.map((widget) => {
+                        if (widget.id === action.widget.id) {
+                            widget.order = temp;
+                        }
+                        return Object.assign({}, widget);
+                    }),
+                    preview: state.preview
+                }
+            }
+        case constants.MOVE_WIDGET_DOWN:
+            idx = state.widgets.indexOf(action.widget);
+            if (idx === state.widgets.length-1) {
+                return state;
+            } else {
+                temp = state.widgets[idx+1].order;
+                state.widgets[idx+1].order = action.widget.order;
+                return {
+                    widgets: state.widgets.map((widget) => {
+                        if (widget.id === action.widget.id) {
+                            widget.order = temp;
+                        }
+                        return Object.assign({}, widget);
+                    }),
+                    preview: state.preview
+                }
             }
         default:
             return state;
