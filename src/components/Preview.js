@@ -64,16 +64,5 @@ const LinkPreview = ({link}) => {
     return <a href={link.href} target="_blank">{link.text}</a>
 };
 
-const stateToPropertiesMapper = (state) => (
-    {state}
-);
-
-const dispatcherToPropsMapper = dispatch => ({
-
-});
-
-const PreviewContainer = connect(
-    stateToPropertiesMapper,
-    dispatcherToPropsMapper
-)(Preview)
+const PreviewContainer = connect()(Preview)
 export default PreviewContainer;
