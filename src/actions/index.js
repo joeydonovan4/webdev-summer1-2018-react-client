@@ -67,7 +67,7 @@ export const headingSizeUpdated = (dispatch, widgetId, updatedSize) => (
     dispatch({
         type: constants.HEADING_SIZE_UPDATED,
         id: widgetId,
-        size: updatedSize
+        size: parseInt(updatedSize, 10)
     })
 );
 

@@ -6,6 +6,7 @@ import ParagraphContainer from './Paragraph';
 import ListContainer from './List';
 import ImageContainer from './Image';
 import LinkContainer from './Link';
+import PreviewContainer from './Preview';
 import { widgetNameUpdated, widgetTypeUpdated, deleteWidget } from '../actions/index';
 
 const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget}) => {
@@ -42,19 +43,25 @@ const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget}) =>
                 </Panel.Title>
             </Panel.Heading>
             <Panel.Body>
-                <form>
-                    {widget.className === 'Heading' && <HeadingContainer widget={widget}/>}
-                    {widget.className === 'Paragraph' && <ParagraphContainer widget={widget}/>}
-                    {widget.className === 'List' && <ListContainer widget={widget}/>}
-                    {widget.className === 'Image' && <ImageContainer widget={widget}/>}
-                    {widget.className === 'Link' && <LinkContainer widget={widget}/>}
-                    <div className="form-group">
-                        <input className="form-control" placeholder="Widget name"
-                            value={widget.name}
-                            onChange={() => widgetNameUpdated(widget.id, widgetName.value)}
-                            ref={node => widgetName = node}/>
-                    </div>
-                </form>
+                <div id="widget-form">
+                    <form>
+                        {widget.className === 'Heading' && <HeadingContainer widget={widget}/>}
+                        {widget.className === 'Paragraph' && <ParagraphContainer widget={widget}/>}
+                        {widget.className === 'List' && <ListContainer widget={widget}/>}
+                        {widget.className === 'Image' && <ImageContainer widget={widget}/>}
+                        {widget.className === 'Link' && <LinkContainer widget={widget}/>}
+                        <div className="form-group">
+                            <input className="form-control" placeholder="Widget name"
+                                value={widget.name}
+                                onChange={() => widgetNameUpdated(widget.id, widgetName.value)}
+                                ref={node => widgetName = node}/>
+                        </div>
+                    </form>
+                    <h3>Preview</h3>
+                </div>
+                <div id="preview-section">
+                    <PreviewContainer widget={widget}/>
+                </div>
             </Panel.Body>
         </Panel>
     )
