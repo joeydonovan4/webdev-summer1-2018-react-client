@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import * as actions from "../actions";
-import { Button, PanelGroup } from 'react-bootstrap';
+import { Button, PanelGroup, ButtonToolbar, ToggleButtonGroup, ToggleButton } from 'react-bootstrap';
 import WidgetContainer from "../components/Widget";
 import '../styles/Widgets.css';
 
@@ -33,6 +33,14 @@ class WidgetList extends Component {
                         Save
                     </Button>
                 </h4>
+                <div id="preview-btns">
+                    <ButtonToolbar bsSize="small">
+                        <ToggleButtonGroup type="radio" name="preview-btns" defaultValue="off" className="pull-right">
+                            <ToggleButton value="off">Preview Off</ToggleButton>
+                            <ToggleButton value="on">Preview On</ToggleButton>
+                        </ToggleButtonGroup>
+                    </ButtonToolbar>
+                </div>
                 <PanelGroup id="widget-panels">
                     {this.renderWidgets()}
                 </PanelGroup>
