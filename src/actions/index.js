@@ -79,11 +79,11 @@ export const paragraphTextUpdated = (dispatch, widgetId, updatedText) => (
     })
 );
 
-export const listTextUpdated = (dispatch, widgetId, updatedText) => (
+export const listItemsUpdated = (dispatch, widgetId, updatedItems) => (
     dispatch({
-        type: constants.LIST_TEXT_UPDATED,
+        type: constants.LIST_ITEMS_UPDATED,
         id: widgetId,
-        text: updatedText
+        listItems: updatedItems
     })
 );
 

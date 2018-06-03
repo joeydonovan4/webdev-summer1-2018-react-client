@@ -6,8 +6,8 @@ const Preview = ({widget}) => {
         <div>
             {widget.className === 'Heading' && <HeadingPreview heading={widget}/>}
             {widget.className === 'Paragraph' && <ParagraphPreview paragraph={widget}/>}
-            {/* {widget.className === 'List' && <ListContainer widget={widget}/>}
-            {widget.className === 'Image' && <ImageContainer widget={widget}/>}
+            {widget.className === 'List' && <ListPreview list={widget}/>}
+            {/* {widget.className === 'Image' && <ImageContainer widget={widget}/>}
             {widget.className === 'Link' && <LinkContainer widget={widget}/>} */}
         </div>
     )
@@ -29,6 +29,32 @@ const HeadingPreview = ({heading}) => {
 const ParagraphPreview = ({paragraph}) => {
     return <p>{paragraph.text}</p>
 };
+
+const ListPreview = ({list}) => {
+    if (list.listItems) {
+        let itemNumber = 0;
+        let listItems = list.listItems.split("\n").map((item) => (
+            <li key={++itemNumber}>{item}</li>
+        ));
+        if (list.listType === 'UNORDERED') {
+            return (
+                <ul>
+                    {listItems}
+                </ul>
+            )
+        } else if (list.listType === 'ORDERED') {
+            return (
+                <ol>
+                    {listItems}
+                </ol>
+            )
+        } else {
+            return null;
+        }
+    } else {
+        return null;
+    }
+}
 
 const stateToPropertiesMapper = (state) => (
     {state}

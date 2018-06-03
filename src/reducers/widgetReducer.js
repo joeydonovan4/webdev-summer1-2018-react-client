@@ -54,7 +54,6 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                 })
             }
         case constants.LINK_TEXT_UPDATED:
-        case constants.LIST_TEXT_UPDATED:
         case constants.PARAGRAPH_TEXT_UPDATED:
         case constants.HEADING_TEXT_UPDATED:
             return {
@@ -70,6 +69,15 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                 widgets: state.widgets.map((widget) => {
                     if (widget.id === action.id) {
                         widget.size = action.size;
+                    }
+                    return Object.assign({}, widget);
+                })
+            }
+        case constants.LIST_ITEMS_UPDATED:
+            return {
+                widgets: state.widgets.map((widget) => {
+                    if (widget.id === action.id) {
+                        widget.listItems = action.listItems;
                     }
                     return Object.assign({}, widget);
                 })

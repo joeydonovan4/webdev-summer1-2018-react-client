@@ -1,18 +1,18 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { ButtonToolbar, ToggleButtonGroup, ToggleButton } from "react-bootstrap";
-import { listTextUpdated, listTypeUpdated } from "../actions/index";
+import { listItemsUpdated, listTypeUpdated } from "../actions/index";
 
-const List = ({widget, listTextUpdated, listTypeUpdated}) => {
-    let listText;
+const List = ({widget, listItemsUpdated, listTypeUpdated}) => {
+    let listItems;
     return (
         <div>
             <div className="form-group">
                 <textarea id="list-textarea" className="form-control" placeholder="Enter one list item per line"
                     rows="5"
-                    value={widget.text}
-                    onChange={() => listTextUpdated(widget.id, listText.value)}
-                    ref={node => listText = node}></textarea>
+                    value={widget.listItems}
+                    onChange={() => listItemsUpdated(widget.id, listItems.value)}
+                    ref={node => listItems = node}></textarea>
             </div>
             <div className="form-group">
                 <ButtonToolbar>
@@ -32,8 +32,8 @@ const stateToPropertiesMapper = (state) => (
 );
 
 const dispatcherToPropsMapper = dispatch => ({
-    listTextUpdated: (widgetId, updatedText) =>
-        listTextUpdated(dispatch, widgetId, updatedText),
+    listItemsUpdated: (widgetId, updatedItems) =>
+        listItemsUpdated(dispatch, widgetId, updatedItems),
     listTypeUpdated: (widgetId, updatedType) =>
         listTypeUpdated(dispatch, widgetId, updatedType)
 });
