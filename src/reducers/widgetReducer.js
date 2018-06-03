@@ -1,7 +1,19 @@
 import * as constants from "../constants/index";
 
-export const widgetReducer = (state = {widgets: []}, action) => {
+export const widgetReducer = (state = {widgets: [], preview: "OFF"}, action) => {
     switch (action.type) {
+        case constants.PREVIEW_MODE:
+            if (state.preview === "OFF") {
+                return {
+                    widgets: state.widgets,
+                    preview: "ON"
+                }
+            } else {
+                return {
+                    widgets: state.widgets,
+                    preview: "OFF"
+                }
+            }
         case constants.SELECT_WIDGET_TYPE:
             let newState = {
                 widgets: state.widgets.filter((widget) => {
@@ -9,7 +21,8 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                         widget.className = action.widgetType
                     }
                     return true;
-                })
+                }),
+                preview: state.preview
             }
             return JSON.parse(JSON.stringify(newState));
         case constants.SAVE:
@@ -24,17 +37,20 @@ export const widgetReducer = (state = {widgets: []}, action) => {
             return state;
         case constants.FIND_ALL_WIDGETS:
             return {
-                widgets: action.widgets
+                widgets: action.widgets,
+                preview: state.preview
             }
         case constants.FIND_WIDGETS_FOR_LESSON_TOPIC:
             return {
-                widgets: action.widgets
+                widgets: action.widgets,
+                preview: state.preview
             }
         case constants.DELETE_WIDGET:
             return {
                 widgets: state.widgets.filter(widget => (
                     widget.id !== action.id
-                ))
+                )),
+                preview: state.preview
             }
         case constants.ADD_WIDGET:
             return {
@@ -42,7 +58,8 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                     ...state.widgets,
                     {id: state.widgets.length + 1,
                         text: 'New Widget', widgetType: 'Paragraph' }
-                ]
+                ],
+                preview: state.preview
             }
         case constants.WIDGET_NAME_UPDATED:
             return {
@@ -51,7 +68,8 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                         widget.name = action.name
                     }
                     return Object.assign({}, widget);
-                })
+                }),
+                preview: state.preview
             }
         case constants.LINK_TEXT_UPDATED:
         case constants.PARAGRAPH_TEXT_UPDATED:
@@ -62,7 +80,8 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                         widget.text = action.text
                     }
                     return Object.assign({}, widget);
-                })
+                }),
+                preview: state.preview
             }
         case constants.HEADING_SIZE_UPDATED:
             return {
@@ -71,7 +90,8 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                         widget.size = action.size;
                     }
                     return Object.assign({}, widget);
-                })
+                }),
+                preview: state.preview
             }
         case constants.LIST_ITEMS_UPDATED:
             return {
@@ -80,7 +100,8 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                         widget.listItems = action.listItems;
                     }
                     return Object.assign({}, widget);
-                })
+                }),
+                preview: state.preview
             }
         case constants.LIST_TYPE_UPDATED:
             return {
@@ -89,7 +110,8 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                         widget.listType = action.listType;
                     }
                     return Object.assign({}, widget);
-                })
+                }),
+                preview: state.preview
             }
         case constants.SRC_UPDATED:
             return {
@@ -98,7 +120,8 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                         widget.src = action.src;
                     }
                     return Object.assign({}, widget);
-                })
+                }),
+                preview: state.preview
             }
         case constants.HREF_UPDATED:
             return {
@@ -107,7 +130,8 @@ export const widgetReducer = (state = {widgets: []}, action) => {
                         widget.href = action.href;
                     }
                     return Object.assign({}, widget);
-                })
+                }),
+                preview: state.preview
             }
         default:
             return state;

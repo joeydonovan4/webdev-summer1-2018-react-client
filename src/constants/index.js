@@ -18,3 +18,5 @@ export const SRC_UPDATED = 'SRC_UPDATED';
 
 export const LINK_TEXT_UPDATED = 'LINK_TEXT_UPDATED';
 export const HREF_UPDATED = 'HREF_UPDATED';
+
+export const PREVIEW_MODE = 'PREVIEW_MODE';

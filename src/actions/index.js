@@ -2,6 +2,10 @@ import * as constants from "../constants/index";
 
 const HOST = 'https://webdev-java-server.herokuapp.com';
 
+export const togglePreviewMode = dispatch => (
+    dispatch({type: constants.PREVIEW_MODE})
+);
+
 export const findAllWidgets = dispatch => {
     fetch(HOST + '/api/widgets')
         .then(response => (response.json()))

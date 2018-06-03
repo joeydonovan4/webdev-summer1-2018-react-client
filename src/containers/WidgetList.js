@@ -19,9 +19,12 @@ class WidgetList extends Component {
     }
 
     renderWidgets() {
-        return this.props.widgets.map(widget => (
-            <WidgetContainer widget={widget} key={widget.id}/>
-        ));
+        if (this.props.widgets) {
+            return this.props.widgets.map(widget => (
+                <WidgetContainer widget={widget} key={widget.id}/>
+            ));
+        }
+        return null;
     }
 
     render() {
@@ -35,9 +38,10 @@ class WidgetList extends Component {
                 </h4>
                 <div id="preview-btns">
                     <ButtonToolbar bsSize="small">
-                        <ToggleButtonGroup type="radio" name="preview-btns" defaultValue="off" className="pull-right">
-                            <ToggleButton value="off">Preview Off</ToggleButton>
-                            <ToggleButton value="on">Preview On</ToggleButton>
+                        <ToggleButtonGroup type="radio" name="preview-btns" className="pull-right" value={this.props.preview}
+                            onChange={this.props.togglePreviewMode}>
+                            <ToggleButton value="OFF">Preview Off</ToggleButton>
+                            <ToggleButton value="ON">Preview On</ToggleButton>
                         </ToggleButtonGroup>
                     </ButtonToolbar>
                 </div>
@@ -52,16 +56,17 @@ class WidgetList extends Component {
     }
 }
 
-const stateToPropertiesMapper = (state) => (
-    { widgets: state.widgets }
-);
+const stateToPropertiesMapper = (state) => ({
+    widgets: state.widgets,
+    preview: state.preview
+});
 
 const dispatcherToPropsMapper = dispatch => ({
-    findAllWidgets: () => actions.findAllWidgets(dispatch),
     findWidgetsForLessonTopic: (lessonId, topicId) =>
         actions.findWidgetsForLessonTopic(dispatch, lessonId, topicId),
     addWidget: () => actions.addWidget(dispatch),
-    save: () => actions.save(dispatch)
+    save: () => actions.save(dispatch),
+    togglePreviewMode: () => actions.togglePreviewMode(dispatch)
 });
 
 const WidgetApp = connect(
