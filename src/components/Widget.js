@@ -38,6 +38,7 @@ const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget}) =>
                         <option value="Paragraph">Paragraph</option>
                         <option value="List">List</option>
                         <option value="Image">Image</option>
+                        <option value="Link">Link</option>
                     </select>
                     <span>&nbsp;Widget</span>
                 </Panel.Title>

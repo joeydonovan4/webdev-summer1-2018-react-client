@@ -8,7 +8,7 @@ const Preview = ({widget}) => {
             {widget.className === 'Paragraph' && <ParagraphPreview paragraph={widget}/>}
             {widget.className === 'List' && <ListPreview list={widget}/>}
             {widget.className === 'Image' && <ImagePreview image={widget}/>}
-            {/* {widget.className === 'Link' && <LinkContainer widget={widget}/>} */}
+            {widget.className === 'Link' && <LinkPreview link={widget}/>}
         </div>
     )
 };
@@ -58,6 +58,10 @@ const ListPreview = ({list}) => {
 
 const ImagePreview = ({image}) => {
     return <img src={image.src} alt="&nbsp;Cannot be rendered"/>
+};
+
+const LinkPreview = ({link}) => {
+    return <a href={link.href} target="_blank">{link.text}</a>
 };
 
 const stateToPropertiesMapper = (state) => (
