@@ -37,7 +37,7 @@ const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget, pre
                     </ButtonToolbar>
                 </div>
                 <Panel.Title componentClass="h2">
-                    <select value={widget.className} style={{marginRight: 5}}
+                    <select value={widget.widgetType} style={{marginRight: 5}}
                         onChange={e => widgetTypeUpdated(widget.id, selectElement.value)}
                         ref={node => selectElement = node}>
                         <option value="Heading">Heading</option>
@@ -52,11 +52,11 @@ const Widget = ({widget, widgetNameUpdated, widgetTypeUpdated, deleteWidget, pre
             <Panel.Body>
                 <div hidden={preview === "ON"}>
                     <form>
-                        {widget.className === 'Heading' && <HeadingContainer widget={widget}/>}
-                        {widget.className === 'Paragraph' && <ParagraphContainer widget={widget}/>}
-                        {widget.className === 'List' && <ListContainer widget={widget}/>}
-                        {widget.className === 'Image' && <ImageContainer widget={widget}/>}
-                        {widget.className === 'Link' && <LinkContainer widget={widget}/>}
+                        {widget.widgetType === 'Heading' && <HeadingContainer widget={widget}/>}
+                        {widget.widgetType === 'Paragraph' && <ParagraphContainer widget={widget}/>}
+                        {widget.widgetType === 'List' && <ListContainer widget={widget}/>}
+                        {widget.widgetType === 'Image' && <ImageContainer widget={widget}/>}
+                        {widget.widgetType === 'Link' && <LinkContainer widget={widget}/>}
                         <div className="form-group">
                             <input className="form-control" placeholder="Widget name"
                                 value={widget.name}

@@ -19,7 +19,7 @@ export const widgetReducer = (state = {widgets: [], preview: "OFF"}, action) => 
             let newState = {
                 widgets: state.widgets.filter((widget) => {
                     if (widget.id === action.id) {
-                        widget.className = action.widgetType
+                        widget.widgetType = action.widgetType
                     }
                     return true;
                 }),
@@ -58,7 +58,7 @@ export const widgetReducer = (state = {widgets: [], preview: "OFF"}, action) => 
                 widgets: [
                     ...state.widgets,
                     {id: state.widgets.length + 1,
-                        className: 'Paragraph', order: state.widgets.slice(-1).order + 1}
+                        widgetType: 'Heading', order: state.widgets.slice(-1).order + 1}
                 ],
                 preview: state.preview
             }
