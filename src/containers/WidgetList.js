@@ -32,7 +32,7 @@ class WidgetList extends Component {
             <div>
                 <h4>
                     <span style={{marginRight: 10}}>Widgets</span>
-                    <Button className="pull-right" bsSize="xsmall" bsStyle="success" title="Save changes">
+                    <Button className="pull-right" bsSize="xsmall" bsStyle="success" title="Save changes" onClick={() => this.props.saveWidgets(this.props.topicId)}>
                         Save
                     </Button>
                 </h4>
@@ -65,7 +65,7 @@ const dispatcherToPropsMapper = dispatch => ({
     findWidgetsForLessonTopic: (lessonId, topicId) =>
         actions.findWidgetsForLessonTopic(dispatch, lessonId, topicId),
     addWidget: () => actions.addWidget(dispatch),
-    save: () => actions.save(dispatch),
+    saveWidgets: (topicId) => actions.saveWidgets(dispatch, topicId),
     togglePreviewMode: () => actions.togglePreviewMode(dispatch)
 });
 

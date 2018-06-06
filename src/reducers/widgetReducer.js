@@ -26,16 +26,11 @@ export const widgetReducer = (state = {widgets: [], preview: "OFF"}, action) => 
                 preview: state.preview
             }
             return JSON.parse(JSON.stringify(newState));
-        case constants.SAVE:
-            let HOST = 'https://webdev-java-server.herokuapp.com';
-            fetch(HOST + '/api/widgets/save', {
-                method: 'post',
-                body: JSON.stringify(state.widgets),
-                headers: {
-                    'content-type': 'application/json'
-                }
-            });
-            return state;
+        case constants.SAVE_WIDGETS:
+            return {
+                widgets: action.widgets,
+                preview: state.preview
+            }
         case constants.FIND_ALL_WIDGETS:
             return {
                 widgets: action.widgets,

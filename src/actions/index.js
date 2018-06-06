@@ -1,4 +1,5 @@
 import * as constants from "../constants/index";
+import store from '../store/index';
 
 const HOST = 'https://webdev-java-server.herokuapp.com';
 
@@ -39,9 +40,25 @@ export const addWidget = dispatch => (
     dispatch({type: constants.ADD_WIDGET})
 );
 
-export const save = dispatch => (
-    dispatch({type: constants.SAVE})
-);
+export const saveWidgets = (dispatch, topicId) => {
+    var widgets = store.getState().widgets;
+    for (var i = 0; i < widgets.length; i++) {
+        delete widgets[i].createdAt;
+        delete widgets[i].updatedAt;
+    }
+    fetch(HOST + '/api/topics/' + topicId + '/widgets', {
+        method: 'post',
+        body: JSON.stringify({widgets: widgets}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => (response.json()))
+    .then(widgets => dispatch({
+        type: constants.SAVE_WIDGETS,
+        widgets: widgets
+    }));
+};
 
 export const widgetTypeUpdated = (dispatch, widgetId, widgetType) => (
     dispatch({
