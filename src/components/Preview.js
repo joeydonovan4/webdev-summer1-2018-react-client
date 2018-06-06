@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 const Preview = ({widget}) => {
     return (
         <div>
-            {widget.className === 'Heading' && <HeadingPreview heading={widget}/>}
-            {widget.className === 'Paragraph' && <ParagraphPreview paragraph={widget}/>}
-            {widget.className === 'List' && <ListPreview list={widget}/>}
-            {widget.className === 'Image' && <ImagePreview image={widget}/>}
-            {widget.className === 'Link' && <LinkPreview link={widget}/>}
+            {widget.widgetType === 'Heading' && <HeadingPreview heading={widget}/>}
+            {widget.widgetType === 'Paragraph' && <ParagraphPreview paragraph={widget}/>}
+            {widget.widgetType === 'List' && <ListPreview list={widget}/>}
+            {widget.widgetType === 'Image' && <ImagePreview image={widget}/>}
+            {widget.widgetType === 'Link' && <LinkPreview link={widget}/>}
         </div>
     )
 };
